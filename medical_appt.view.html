@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Medical Appointment</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="shortcut icon" href="#">  <!-- create icon for minerva project and link to it here -->
+
+    <script src="main.module.js"></script>
+    <script src="medical_appt.config.js"></script>
+
+    <style>
+        .textarea {
+            width: 250px;
+            min-height: 50px;
+            height: auto;
+            border: 2px solid rgba(63, 63, 63, 1);
+        }
+    </style>
+
+
+</head>
+<body>
+<h1>Medical Appointments</h1>
+
+<div ng-app="mainApp" ng-controller="MedicalApptController">
+
+    <div class="container-fluid" style="margin-top:0px">
+        <button type="button" class="btn btn-secondary"
+                data-toggle="collapse"
+                data-target="#searchColumn">CollapseFindCadet
+        </button>
+        <button type="button" class="btn btn-secondary"
+                data-toggle="collapse"
+                data-target="#medApptColumn">Collapse Appt
+        </button>
+        <p>
+            <button ng-click="showCards()"> show all</button>
+            <button ng-click="collapseCards()"> collapse all</button>
+            <button ng-click="toggleCards()"> toggle all</button>
+        </p>
+        <div class="row">
+            <div class="col-2" id="searchColumn" class="collapse">
+                <h1>Search Panel</h1>
+
+            </div>
+
+            <div class="col-6" id="medApptColumn" class="collapse">
+                <!-- Appointment -->
+                <div class="card">
+                    <div class="card-header">
+                        <button class="btn" data-toggle="collapse" data-target="#medApptCard" aria-expanded="false"
+                                aria-controls="medApptCard">+
+                        </button>
+                        Medical Appointments
+                        <input ng-model="medApptFilter" type="text">
+                    </div>
+                    <div class="card-body collapse" id="medApptCard">
+
+                        <table style="width: 1px;">
+                            <thead>
+                            <tr>
+                                <th> Date Added</th>
+                                <th> Appt Date</th>
+                                <th> Cadet Name</th>
+                                <th> isTriCare</th>
+                                <th> Appt Type</th>
+                                <th> Where?</th>
+                                <th> Physician</th>
+                                <th> Sign Out Person</th>
+                                <th> Sign Out Time</th>
+                                <th> Sign In Person</th>
+                                <th> Sign In Time</th>
+                                <th> Notes</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr  ng-repeat="tempAppt in medAppts |orderBy: 'MedApptDate' |filter:medApptFilter track by $index"
+                                 style="border: 1px solid black;">
+                                    <td style="width: 1%; white-space: nowrap;">
+                                        <input type="date"
+                                               ng-model="tempAppt.MedApptDateAdded"
+                                               ng-readonly="true"/></td>
+
+                                    <td><input type="date"
+                                               ng-model="tempAppt.MedApptDate"/></td>
+
+                                 <td><input type="text"
+                                           ng-model="tempAppt.fkClassDetailID"/></td>
+                                <td><input type="checkbox"
+                                           ng-model="tempAppt.isTricare" ng-true-value="'1'" ng-false-value="'0'"/></td>
+                                <td><input type="text"
+                                           ng-model="tempAppt.MedApptType"/></td>
+                                <td><input type="text"
+                                           ng-model="tempAppt.MedApptLocation"/></td>
+                                <td><input type="text"
+                                           ng-model="tempAppt.MedApptPhysician"/></td>
+                                <td><input type="text"
+                                           ng-model="tempAppt.MedApptSignOutPerson"/></td>
+                                <td><input type="time"
+                                           ng-model="tempAppt.MedApptSignOutTime"/></td>
+                                <td><input type="text"
+                                           ng-model="tempAppt.MedApptSignInPerson"/></td>
+                                <td><input type="time"
+                                           ng-model="tempAppt.MedApptSignInTime"/></td>
+                                <td><input type="text"
+                                           ng-model="tempAppt.MedApptNotes"/></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<div class="card">
+    <div class="card-header" ng-class="$ctrl.getCardStyle($ctrl.editMode)">
+        <button class="btn" data-toggle="collapse" data-target="#substanceAbuseCard" aria-expanded="false"
+                aria-controls="substanceAbuseCard">+
+        </button>
+        Substance Abuse
+    </div>
+    <div class="card-body collapse" ng-class="$ctrl.getCardStyle($ctrl.editMode)" id="substanceAbuseCard">
+
+        <table class="table minerva-table">
+            <thead>
+            <tr>
+                <th colspan="5">
+                    <button class="btn btnEdit" ng-hide="$ctrl.editMode" ng-click="$ctrl.enableEdits()">Edit</button>
+                    <button class="btn btnSave" ng-hide="!$ctrl.editMode" ng-click="$ctrl.saveEdits()">Save</button>
+                    <button class="btn btnCancel" ng-hide="!$ctrl.editMode" ng-click="$ctrl.cancelEdits()">Cancel</button>
+                </th>
+            </tr>
+            <tr>
+                <th>Test Date</th>
+                <th>Pos?</th>
+                <th>Drug</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="tempSubstanceAbuse in $ctrl.dataList track by $index">
+                <td><input  type="date"
+                            ng-model="tempSubstanceAbuse.SubstAbuseTestDate" ng-disabled="!$ctrl.editMode"/></td>
+                <td><input type="checkbox"
+                           ng-true-value="'1'"
+                           ng-false-value="'0'"
+                           ng-model="tempSubstanceAbuse.WasPositive"
+                           ng-disabled="!$ctrl.editMode" /> </td>
+                <td><input ng-model="tempSubstanceAbuse.DrugsAbused" ng-disabled="!$ctrl.editMode"/></td>
+                <td> <textarea rows="1" cols="40" style="resize:vertical;"
+                               ng-model="tempSubstanceAbuse.SubstAbuseTestNotes"
+                               data-toggle="modal" data-target="#newSubstAbuseTestModal{{$index}}"
+                               readonly></textarea>
+                    <!-- div to pop up textarea when clicked -->
+                    <div class="modal fade" id="newSubstAbuseTestModal{{$index}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h6>Note</h6>
+                                    <div class="modal-body">
+                                                <textarea rows="5" cols="40"
+                                                          ng-model="tempSubstanceAbuse.SubstAbuseTestNotes"
+                                                          ng-disabled="!$ctrl.editMode"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+
+                                <button class="btn btnDelete"
+                                        ng-hide="!$ctrl.editMode"
+                                        ng-click="$ctrl.deleteRecord($index)">Delete</button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <span ng-hide="!$ctrl.editMode">
+                <button class="btn btnCreate" ng-click="$ctrl.createRecord()">Add</button>
+                </span>
+
+    </div>
+</div>

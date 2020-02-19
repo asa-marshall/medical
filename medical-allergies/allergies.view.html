@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="card-header" ng-class="$ctrl.getCardStyle($ctrl.editMode)">
+        <button class="btn" data-toggle="collapse" data-target="#allergiesCard" aria-expanded="false"
+                aria-controls="allergiesCard">+
+        </button>
+        Allergies
+    </div>
+    <div class="card-body collapse" ng-class="$ctrl.getCardStyle($ctrl.editMode)"  id="allergiesCard">
+
+        <table class="table minerva-table">
+            <thead>
+            <tr>
+                <th colspan="4">
+                    <button class="btn btnEdit" ng-hide="$ctrl.editMode" ng-click="$ctrl.enableEdits()">Edit</button>
+                    <button class="btn btnSave" ng-hide="!$ctrl.editMode" ng-click="$ctrl.saveEdits()">Save</button>
+                    <button class="btn btnCancel" ng-hide="!$ctrl.editMode" ng-click="$ctrl.cancelEdits()">Cancel</button>
+                </th>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Note</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="tempAllergies in $ctrl.dataList track by $index">
+                <td>
+                    <select ng-model="tempAllergies.AllergyCategory"
+                            ng-options="option.AllergyCategory as option.AllergyCategory for option in $ctrl.allergyCategoryLkp"
+                            ng-disabled="!$ctrl.editMode">
+                    </select>
+                </td>
+
+                <td><input list="allergyTypeList{{$index}}"
+                           ng-focus="$ctrl.getCurrentAllergyTypes(tempAllergies.AllergyCategory)"
+                           ng-model="tempAllergies.AllergyType" ng-disabled="!$ctrl.editMode">
+
+                    <datalist id=allergyTypeList{{$index}}>
+                        <option ng-repeat="option in $ctrl.getCurrentAllergyTypes(tempAllergies.AllergyCategory)" value="{{option}}"></option>
+                    </datalist></td>
+                <td> <textarea rows="1" cols="40" style="resize:vertical;"
+                               ng-model="tempAllergies.AllergyNote"
+                               data-toggle="modal" data-target="#newAllergyModal{{$index}}"
+                               readonly></textarea>
+                    <!-- div to pop up textarea when clicked -->
+                    <div class="modal fade" id="newAllergyModal{{$index}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h6>Note</h6>
+                                    <div class="modal-body">
+                                                <textarea rows="5" cols="40"
+                                                          ng-model="tempAllergies.AllergyNote"
+                                                          ng-disabled="!$ctrl.editMode"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                <button class="btn btnDelete"
+                        ng-hide="!$ctrl.editMode"
+                        ng-click="$ctrl.deleteRecord($index)">Delete</button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <span ng-hide="!$ctrl.editMode">
+                <button class="btn btnCreate" ng-click="$ctrl.createRecord()">Add</button>
+                </span>
+
+    </div>
+</div>

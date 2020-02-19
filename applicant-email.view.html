@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Minerva</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+
+
+    <script src="main.config.js"></script>
+
+    <script src="applicant.module.js"></script>
+
+    <script src="modules/search/search.module.js"></script>
+    <script src="modules/search/find-cadet/find-cadet.module.js"></script>
+    <script src="modules/search/find-cadet/find-cadet.component.js"></script>
+    <script src="modules/search/find-cadet/find-cadet-panel.component.js"></script>
+    <script src="modules/search/find-applicant/find-applicant.module.js"></script>
+    <script src="modules/search/find-applicant/find-applicant.component.js"></script>
+    <script src="modules/search/find-applicant/find-applicant-panel.component.js"></script>
+
+    <script src="applicant-email.controller.js"></script>
+</head>
+<body>
+
+<h1>Email Applicants</h1>
+<div ng-app="myApplicant" ng-controller="ApplicantEmailController">
+
+    <div class="container-fluid" style="margin-top:0">
+        <div class="row alert-info">
+            <div class="col">
+                    <button data-toggle="collapse"
+                            class="btn-primary"
+                            data-target="#searchColumn" > Search Panel </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 "  id="searchColumn">
+                <find-applicant-panel></find-applicant-panel>
+            </div>
+
+            <div class="col alert alert-danger" ng-show="applicantIDError">
+                You must select an Applicant to begin.
+            </div>
+            <div class="col=8" ng-hide="applicantIDError">
+
+                <table class="table minerva-table table-hover">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>PersonFN</th>
+                        <th>PersonLN</th>
+                        <th> <div class="form-check form-check-inline">
+                            <input  class="form-check-input" type="checkbox" ng-model="checkall_email"
+                                    id="show_email"
+                                    ng-true-value=true ng-false-value=false
+                                    ng-click="toggleCheckAllEmail()"/>
+                            <label class="form-check-label" for="show_email">email</label>
+                        </div>
+                            <div class="form-check form-check-inline">
+                                <input  class="form-check-input" type="checkbox" ng-model="checkall_guard" id="show_guardian"
+                                        ng-click="toggleCheckAllGuard()"
+                                        ng-true-value=true ng-false-value=false />
+                                <label  class="form-check-label text-danger" for="show_guardian"> guardian </label>
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="applicant in dataList | orderBy:'PersonLN' track by applicant.ApplicantID"  ng-class="getStyle(applicant)" >
+                        <td>
+                            <button ng-click="getPreview(applicant)"><span class="oi oi-eye"></span></button>
+                        </td>
+                        <td> {{applicant.PersonFN}}</td>
+                        <td> {{applicant.PersonLN}}</td>
+                        <td>
+                    <span >
+                        <span ng-repeat="item in applicant.email">
+                        <input type="checkbox" ng-model="item.emailCheck"
+                               ng-disabled="!applicant.check"/>
+                        {{item.ContactInfo}} <br/>
+                        </span>
+                    </span>
+                            <span >
+                         <span ng-repeat="item in applicant.guardians" class="text-danger">
+                             <input type="checkbox" ng-model="item.guardCheck" />
+                              {{item.ContactInfo}}<br/>
+                          </span>
+                        </span>
+                    </span>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="selectedForm">Form:</label>
+                    <select ng-model ="selectedForm"
+                            ng-options="option.FormID as option.FormName for option in forms"
+                            ng-change="setForm(selectedForm)"
+                            id="selectedForm"
+                            required>
+                        <option value="" disabled selected>Select Form</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject"> Subject:</label>
+                    <input type="text" ng-model="emailSubject"
+                           class="form-control"
+                           placeholder="Enter Subject" id="emailSubject">
+                </div>
+                <div class="form-group">
+                <textarea ng-model="formpreview"
+                          class="form-control"
+                          rows="15" ></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn-primary btn-sm" ng-click="sendTo()">Email Individual (to)</button>
+                    <button type="button" class="btn-primary btn-sm" ng-click="sendBcc()">Email All  (bcc)</button>
+                </div>
+
+                <!-- Button to Open the Modal -->
+                <button type="button" ng-hide="true" id="previewButton" class="btn btn-primary" data-toggle="modal" data-target="#myPreviewModal">
+                    Preview2
+                </button>
+
+                <!-- The Modal -->
+                <div class="modal fade" id="myPreviewModal">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{emailSubject}}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{formletter}}
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <table class="table minerva-table bg-light">
+                    <thead>
+                    <tr><th>Merge Fields</th></tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="field in formFields track by field.FormFieldID">
+                        <td>{{field.MergeField}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

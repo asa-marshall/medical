@@ -1,0 +1,85 @@
+<div class="card">
+    <div class="card-header" ng-class="$ctrl.getCardStyle($ctrl.editMode)">
+        <button class="btn" data-toggle="collapse" data-target="#medicationsCard" aria-expanded="false"
+                aria-controls="medicationsCard">+
+        </button>
+        Medications
+    </div>
+    <div class="card-body collapse" ng-class="$ctrl.getCardStyle($ctrl.editMode)" id="medicationsCard">
+
+        <datalist id=medTypeList>
+            <option ng-repeat="option in $ctrl.medTypeLkp" value="{{option.MedType}}"></option>
+        </datalist>
+        <datalist id=medFrequencyList>
+            <option ng-repeat="option in $ctrl.medFrequencyLkp" value="{{option.MedFrequency}}"></option>
+        </datalist>
+
+        <table class="table minerva-table">
+            <thead>
+            <tr>
+                <th colspan="9">
+                    <button class="btn btnEdit" ng-hide="$ctrl.editMode" ng-click="$ctrl.enableEdits()">Edit</button>
+                    <button class="btn btnSave" ng-hide="!$ctrl.editMode" ng-click="$ctrl.saveEdits()">Save</button>
+                    <button class="btn btnCancel" ng-hide="!$ctrl.editMode" ng-click="$ctrl.cancelEdits()">Cancel</button>
+                </th>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Taken When</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Notes</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="tempMeds in $ctrl.dataList track by $index">
+                <td><input list="medTypeList" ng-model="tempMeds.fkMedType" ng-disabled="!$ctrl.editMode"/></td>
+
+                <td><input ng-model="tempMeds.MedName" ng-disabled="!$ctrl.editMode"/></td>
+                <td><input ng-model="tempMeds.Dose" ng-disabled="!$ctrl.editMode"/></td>
+
+                <td><input list="medFrequencyList" ng-model="tempMeds.Frequency" ng-disabled="!$ctrl.editMode"/></td>
+
+                <td><input ng-model="tempMeds.TakenWhen" ng-disabled="!$ctrl.editMode"/></td>
+                <td><input type="date" ng-model="tempMeds.MedStartDate" ng-disabled="!$ctrl.editMode"/></td>
+                <td><input type="date" ng-model="tempMeds.MedEndDate" ng-disabled="!$ctrl.editMode"/></td>
+                <td> <textarea rows="1" cols="40" style="resize:vertical;"
+                               ng-model="tempMeds.MedNote"
+                               data-toggle="modal" data-target="#newMedNoteModal{{$index}}"
+                               readonly></textarea>
+
+                    <div class="modal fade" id="newMedNoteModal{{$index}}" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h6>Note</h6>
+                                    <div class="modal-body">
+                                                <textarea rows="5" cols="40"
+                                                          ng-model="tempMeds.MedNote"
+                                                          ng-disabled="!$ctrl.editMode"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+
+                    <button class="btn btnDelete"
+                            ng-hide="!$ctrl.editMode"
+                            ng-click="$ctrl.deleteRecord($index)">Delete</button>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+        <span ng-hide="!$ctrl.editMode">
+                <button class="btn btnCreate" ng-click="$ctrl.createRecord()">Add</button>
+                </span>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+
+DIV.headerwrapperdiv {
+    margin-left: 0px;
+    background-color: #c7c397;
+    padding-top: 1px;
+}
+DIV.headerlinksdiv {
+    text-align: left;
+    margin-right: 0%;
+    margin-top: 2px;
+}
+
+.pageheaderlinks {
+    color: #003366;
+    font-family:  Arial,Verdana, helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 90%;
+    font-style: normal;
+    text-align: right;
+}
+
+/* Class for Sub-menu Items                                  */
+/* ========================================================  */
+.pageheaderlinks2 {
+    color: #CED5EA;
+    font-family:  Arial,Verdana, helvetica, sans-serif;
+    font-size: 90%;
+    text-align: justify;
+}

@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="">
+            <!-- Button to Open the Modal -->
+            <button type="button" class="btn btn-success"
+                    style="background: linear-gradient(to bottom, #1c9e2d, #067613);"
+                    data-toggle="modal" data-target="#findCadetModal">
+                Find A Cadet
+            </button>
+
+            <span ng-hide="$ctrl.cadetSelectionError">
+
+                            <img src={{$ctrl.chosenCadet.CadetImage}}
+                                 class="headshot" height="200" width="200"><br/>
+                    {{$ctrl.chosenCadet.fullName}}<br/>
+                        ID: {{$ctrl.chosenCadet.AcademyID}} <br/>
+                    ({{$ctrl.chosenCadet.PGender}})<br/>
+
+            </span>
+        </div>
+    </div>
+    <hr>
+    <div class="row" ng-hide="$ctrl.cadetSelectionError">
+            <table>
+                <tbody>
+                <tr ng-repeat="person in $ctrl.cadets track by $index"
+                    ng-class="$ctrl.getStyle($index)"
+                    ng-click="$ctrl.selectCadet($index)"
+                >
+                    <td>{{person.fullName}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</div>
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="findCadetModal">
+        <!--Set the max-width to widen the modal to take up most of the screen  style="max-width: 1350px!important;"-->
+        <div class="modal-dialog modal-xl" style="max-width: 90%!important;" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Select Cadets</h4>
+                    <span>
+                <button type="button" class="btn btn-success"
+                        style="background: linear-gradient(to bottom, #1c9e2d, #067613);"
+                        ng-click="$ctrl.saveSelection()"
+                        data-dismiss="modal">
+                    Save Selection
+                </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </span>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <find-cadet></find-cadet>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success"
+                            style="background: linear-gradient(to bottom, #1c9e2d, #067613);"
+                            ng-click="$ctrl.saveSelection()"
+                            data-dismiss="modal"
+                    >
+                        Save Selection
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,165 @@
+
+    <div class="container-fluid" style="margin-top:0">
+        <div class="row">
+            <div class="col-4" id="searchColumn">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="cadetSearch_SiteID">Site</label>
+                                <select ng-model="$ctrl.cadetSearch.SiteID" id="cadetSearch_SiteID"
+                                    ng-options="option.SiteID as option.SiteName for option in $ctrl.options_Site"
+                                 >
+                                    <option value=""></option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cadetSearch_PersonFN">PersonFN</label>
+                                <input ng-model="$ctrl.cadetSearch.PersonFN" id="cadetSearch_PersonFN"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="cadetSearch_PersonLN">PersonLN</label>
+                                <input ng-model="$ctrl.cadetSearch.PersonLN" id="cadetSearch_PersonLN"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="cadetSearch_AcademyID">AcademyID</label>
+                                <input ng-model="$ctrl.cadetSearch.AcademyID" id="cadetSearch_AcademyID"/>
+                            </div>
+                            <hr>
+
+                            <div class="form-group">
+                                <label for="cadetSearch_CadetStatus">Cadet Status</label>
+                                <select ng-model="$ctrl.cadetSearch.CadetStatus" id="cadetSearch_CadetStatus"
+                                        ng-options="option.Status as option.Status for option in $ctrl.options_CadetStatus"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cadetSearch_ClassID">Class</label>
+                                <select ng-model="$ctrl.cadetSearch.ClassID" id="cadetSearch_ClassID"
+                                        ng-options="option.ClassID as option.SiteClassNumber for option in $ctrl.options_Classes"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="cadetSearch_Company">Cadet Company</label>
+                                <select ng-model="$ctrl.cadetSearch.Company" id="cadetSearch_Company"
+                                        ng-options="option.CompanyID as option.CompanyID for option in $ctrl.options_CadetCompany"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cadetSearch_Platoon">Cadet Platoon</label>
+                                <select ng-model="$ctrl.cadetSearch.Platoon" id="cadetSearch_Platoon"
+                                        ng-options="option.PlatoonID as option.PlatoonID for option in $ctrl.options_CadetPlatoon"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="cadetSearch_Squad">Cadet Squad</label>
+                                <select ng-model="$ctrl.cadetSearch.Squad" id="cadetSearch_Squad"
+                                        ng-options="option.SquadID as option.SquadID for option in $ctrl.options_CadetSquad"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cadetSearch_TeacherID">Teacher</label>
+                                <select ng-model="$ctrl.cadetSearch.TeacherID" id="cadetSearch_TeacherID"
+                                        ng-options="option.TeacherID as option.PersonName for option in $ctrl.options_Teachers"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cadetSearch_CounselorID">Counselor</label>
+                                <select ng-model="$ctrl.cadetSearch.CounselorID" id="cadetSearch_CounselorID"
+                                        ng-options="option.CounselorID as option.PersonName for option in $ctrl.options_Counselors"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cadetSearch_CaseManagerID">Case Manager</label>
+                                <select ng-model="$ctrl.cadetSearch.CaseManagerID" id="cadetSearch_CaseManagerID"
+                                        ng-options="option.CaseManagerID as option.PersonName for option in $ctrl.options_CaseManagers"
+                                >
+                                    <option value=""></option>
+                                </select>
+                            </div>
+
+
+                            <button type="button" class="btn" ng-click="$ctrl.loadCadets()">Search Cadets</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="dataListColumn" class="col">
+                <form ng-submit="$ctrl.applyFilter()">
+                <input type="text" placeholder="Enter Filter" ng-model="$ctrl.filterName"/>
+                <button type="button" class="btn-success" ><span class="oi oi-reload"></span>
+                </button>
+                </form>
+                <table class="table minerva-table">
+                    <thead>
+                    <tr>
+                        <th><input title="check" type="checkbox" ng-model="$ctrl.checkall_list" ng-click="$ctrl.toggleCheckAllList()"/>
+                        </th>
+                        <th>PersonLN</th>
+                        <th>PersonFN</th>
+                        <th>AcademyID</th>
+                        <th>Cadet Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="cadet in $ctrl.filteredList | orderBy:'PersonLN' track by cadet.ClassDetailID"
+                        ng-class="$ctrl.getStyle(cadet)"
+                        ng-click="$ctrl.toggleCheck(cadet)">
+                        <td>
+                            <input title="check" type="checkbox"
+                                   ng-model="cadet.check"
+                                   ng-true-value=true
+                            />
+                        </td>
+
+                        <td> {{cadet.PersonLN}}</td>
+                        <td> {{cadet.PersonFN}}</td>
+                        <td> {{cadet.AcademyID}}</td>
+                        <td> {{cadet.CadetStatus}}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div id="selectedListColumn" class="col-2 bg-light">
+                <table class="table minerva-table">
+                    <thead>
+                    <tr>
+                        <th>Selected
+                            <button type="button" id="clearSelected"
+                                    ng-click="$ctrl.clearSelected()"
+                                    class="alert-danger"
+                            >CLEAR &times;
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="applicant in $ctrl.selectedList | orderBy:'PersonLN'">
+                        <td>{{applicant.PersonLN}}, {{applicant.PersonFN}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+

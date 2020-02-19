@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Minerva</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/site.css">
+
+
+    <script src="main.config.js"></script>
+
+    <script src="applicant.module.js"></script>
+
+    <script src="modules/search/search.module.js"></script>
+    <script src="modules/search/find-cadet/find-cadet.module.js"></script>
+    <script src="modules/search/find-cadet/find-cadet.component.js"></script>
+    <script src="modules/search/find-cadet/find-cadet-panel.component.js"></script>
+    <script src="modules/search/find-applicant/find-applicant.module.js"></script>
+    <script src="modules/search/find-applicant/find-applicant.component.js"></script>
+    <script src="modules/search/find-applicant/find-applicant-panel.component.js"></script>
+
+    <script src="applicant.controller.js"></script>
+</head>
+<body>
+
+<h1>Applicant</h1>
+<div ng-app="myApplicant" ng-controller="ApplicantController">
+
+    <div class="container-fluid" style="margin-top:0">
+        <div class="row alert-info">
+            <div class="col">
+                    <button data-toggle="collapse"
+                            data-target="#searchColumn" > Search </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 "  id="searchColumn">
+                <find-applicant-panel></find-applicant-panel>
+            </div>
+
+            <div class="col alert alert-danger" ng-show="applicantIDError">
+                You must select an Applicant to begin.
+            </div>
+            <div class="col=10" ng-hide="applicantIDError">
+
+                <h1> PLACE YOUR CODE HERE</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

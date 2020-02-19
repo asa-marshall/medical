@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="search">
+<head>
+    <meta charset="UTF-8">
+    <title>Minerva</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="../../lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="../../lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="../../lib/bootstrap/dist/css/bootstrap.css">
+    <script src="../../lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <!--
+     Routes in Angular 1.6+ need to add ! when redirecting to state: $window.location = '#!/homeOptions';
+    -->
+    <script type="text/javascript" src="../../lib/angular/angular.js"></script>
+    <script type="text/javascript" src="../../lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="../../lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="shortcut icon" href="#"> <!-- remove the error favicon -->
+
+
+
+    <script src="../../main.config.js"></script>
+
+    <script src="search.module.js"></script>
+    <script src="find-cadet/find-cadet.module.js"></script>
+    <script src="find-cadet/find-cadet-panel.component.js"></script>
+    <script src="find-cadet/find-cadet.component.js"></script>
+
+    <script src="find-applicant/find-applicant.module.js"></script>
+    <script src="find-applicant/find-applicant-panel.component.js"></script>
+    <script src="find-applicant/find-applicant.component.js"></script>
+
+
+
+</head>
+<body >
+<div class="container-fluid">
+
+
+    <!-- <h1>Find Cadet</h1> -->
+    <h1>Find Cadet</h1>
+    <div>
+        <find-cadet></find-cadet>
+    </div>
+    <hr>
+    <h1>Find Applicant</h1>
+
+    <div>
+        <find-applicant-panel></find-applicant-panel>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minerva</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+
+    <link rel="shortcut icon" href="#">  <!-- create icon for minerva project and link to it here -->
+    <link rel="stylesheet" href="css/site.css">
+    <script src="sample.module.js"></script>
+    <script src="sample.controller.js"></script>
+
+</head>
+<body>
+
+<div ng-app="sampleApp" ng-controller="sampleController">
+
+
+    <table class="table">
+        <tr ng-repeat="nav in navigation">
+            <td> {{nav.title}}</td>
+            <td> {{nav.id}}</td>
+            <td> {{nav.href}}</td>
+        </tr>
+    </table>
+
+    <table class="table">
+        <tr ng-repeat="usr in users">
+            <td> {{usr.login}}</td>
+            <td> {{usr.fName}}</td>
+            <td> {{usr.lName}}</td>
+        </tr>
+    </table>
+
+
+    File: sample-index.view.html<br/>
+    <div class="alert-info">Hint: In PhpStorm IDE to search for examples use the Find In Path feature:  Edit/Find/FindInPath</div>
+
+    Using ng-repeat<br/>
+    <table class=" table-striped table-condensed">
+        <!-- display the attribute names  using key-value pair  -->
+        <!-- Examine the first object in the students array: key is the field name -->
+        <thead>
+        <tr>
+            <th ng-repeat="(key,value) in students[0]"> {{key}}</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <!-- display all records in the table -->
+        <tr ng-repeat="stud in students">
+            <td ng-repeat="(key, value) in stud">{{value}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+
+    Using ng-class<br/>
+    <table class="table-bordered">
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Major</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Change the style of cells using ng-class -->
+        <tr ng-repeat="stud in students track by $index">
+            <td>{{$index}}</td>
+            <td ng-class="{'alert-primary':$index<(students.length/2), 'alert-success':$index>(students.length/2)}">{{stud.name}}</td>
+            <td>{{stud.major}}</td>
+            <td ng-class="ageStyle(stud.age)">{{stud.age}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+
+    using ng-style<br/>
+    <input type="button" value="set color" ng-click="myStyle={color:'red'}">
+    <input type="button" value="set background" ng-click="myStyle={'background-color':'blue'}">
+    <input type="button" value="clear" ng-click="myStyle={}">
+    <br/>
+    <span ng-style="myStyle">Sample Text</span>
+    <pre>myStyle={{myStyle}}</pre>
+
+    <hr/>
+
+    Using ng-if:<br/>
+    <label>Edit Mode:
+        <input type="checkbox" ng-model="editMode" ng-init="editMode=false" />
+    </label><br/>
+    <span ng-if="editMode">
+        Edit the information in students array
+        <table class=" table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Major</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="stud in students track by $index">
+                <td><input type="text" ng-model="stud.name"> </td>
+                <td><input type="text" ng-model="stud.major"> </td>
+            </tr>
+            </tbody>
+        </table>
+    </span>
+    <span ng-if="!editMode">
+        Display the information in students array
+        <ul>
+            <li ng-repeat="stud in students track by $index">
+                {{stud.name}} is a {{stud.major}} major.
+                He will be {{stud.age + 1}} next year.
+            </li>
+        </ul>
+    </span>
+
+    <hr/>
+
+    Working with <code> input type="checkbox" </code> and <code>disabled</code><br>
+    <form name="testForm" novalidate>
+        <table class="table-bordered">
+            <tr ng-repeat="stud in students">
+                <td>{{stud.name}}</td>
+                <td>{{stud.show}}</td>
+                <!--  IMPORTANT: Be sure to include the quotes around the values. -->
+                <td><input name="showCheckBox" type="checkbox" ng-true-value="'1'" ng-false-value="'0'" ng-model="stud.show"></td>
+                <td>{{stud.major}}</td>
+                <td><input name="majorCheckBox" type="checkbox" ng-true-value="'CSCI'" ng-model="stud.major" disabled></td>
+            </tr>
+        </table>
+    </form>
+    <hr/>
+
+    Icons: <a href="http://useiconic.com/open">http://useiconic.com/open</a>:<br/>
+    <table class="table-bordered">
+        <tbody>
+        <tr> <td>circle-check </td>     <td><span class="oi oi-circle-check"></span></td> </tr>
+        <tr> <td>circle-x     </td>     <td><span class="oi oi-circle-x" style="color:red"></span></td> </tr>
+        <tr> <td>pencil       </td>     <td><span class="oi oi-pencil"></span></td> </tr>
+        <tr> <td>magnifying-glass </td> <td><span class="oi oi-magnifying-glass"></span> </td> </tr>
+        <tr> <td>person       </td>     <td><span class="oi oi-person" style="color:purple"></span></td> </tr>
+        </tbody>
+    </table>
+    <hr/>
+
+
+    Add Student<br/>
+    <form name="AddStudentForm">
+        name: <input name="name" type="text"  ng-model="myStudent.name" required/>
+        major: <input name="major" type="text" ng-model="myStudent.major"required />
+
+        <button type="button"
+                ng-disabled="AddStudentForm.$invalid"
+                ng-click="addStudent(myStudent)"
+                class="btn btn-success">Add Student</button>
+    </form>
+    <hr/>
+
+    Sql Injection Test: <br/>
+    <p>Adds the last student in the students array to the database. What happens if the student name has special characters:
+     <em>name="d'angelo"</em></p>
+    <button ng-click="storeStudent()"> INSERT Last Student INTO database.</button>
+
+    <table>
+        <tbody>
+        <tr ng-repeat="stud in dbStudents track by $index">
+            <td ng-repeat="(key,value) in stud">{{value}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <table id="studentTable" class="table minerva-table">
+        <thead>
+        <tr>
+            <th colspan="3"> Students <!--header contains EDIT, SAVE and CANCEL buttons -->
+                <button class="btn btnEdit" ng-click="makeEditable()" ng-hide="editMode||createMode"> Edit</button>
+                <button class="btn btnSave" ng-click="saveUpdate()" ng-show="editMode"> Save</button>
+                <button class="btn btnCancel" ng-click="cancelUpdate()" ng-show="editMode"> Cancel</button>
+                <button class="btn btnSave" ng-click=" saveCreate()" ng-show="createMode"> Save</button>
+                <button class="btn btnCancel" ng-click="cancelCreate()" ng-show="createMode"> Cancel</button>
+            </th>
+        </tr>
+        <th>Name</th><th>Age</th><th>show?</th>
+        </thead>
+        <tr ng-repeat="stud in students track by $index"> <!-- display NAME, AGE, SHOW for each student -->
+                    <!-- this input is not editable until the user clicks edit -->
+            <td><input type="text" ng-disabled="!editMode" ng-model="stud.name"></td>
+            <td><input type="text" ng-disabled="!editMode"  ng-model="stud.age"></td>
+            <td><input type="checkbox" ng-disabled="!editMode"  ng-model="stud.show"></td>
+
+            <td> <button class="btn btnEdit" ng-click="editStudent($index)"
+                         ng-show="editMode" ng-disabled="editMode"> Edit</button></td>
+            <td> <button class="btn btnSave" ng-click="saveStudent($index)"
+                         ng-show="editMode" ng-disabled="!editMode"> Save</button></td>
+            <td> <button class="btn btnDelete" ng-click="deleteStudent($index)"
+                         ng-show="editMode" ng-disabled="!editMode"> Delete</button></td>
+                <td> <button class="btn btnCancel" ng-click="cancelUpdate()"
+                            ng-show="editMode" ng-disabled="!editMode"> Cancel</button>
+            </td>
+        </tr>
+    </table>
+    <table ng-show="createMode"> <!--display row to enter NEW student information --->
+        <td><input type="text" ng-model="newStud.name"></td>
+        <td><input type="text"   ng-model="newStud.age"></td>
+        <td><input type="checkbox"   ng-model="newStud.show"></td>
+    </table>
+    <button class="btn btnCreate" ng-click="makeCreatable()" ng-hide="editMode||createMode"> Add New Student</button>
+
+ <hr>
+
+    <select ng-model="scopeName"
+            ng-options="option.description for option in optionsArray track by option.id"
+            ng-change="doSomething(scopeName)"></select>
+
+    <input type="text" disabled  ng-model="result1"/>
+
+    <input type="text" disabled  ng-model="result2"/>
+   </div>
+</body>
+</html>

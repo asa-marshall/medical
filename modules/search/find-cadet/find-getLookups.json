@@ -1,0 +1,12 @@
+{
+  "Site":[{"SiteID":"0","SiteName":"BasicSiteZero"}, {"SiteID":"1","SiteName":"Milledgeville Youth ChalleNGe Academy"},{"SiteID":"2","SiteName":"Gordon Youth Challenge"},{"SiteID":"3","SiteName":"Fort Stewart"}],
+  "SESSION_SiteID":"1",
+  "Classes":[{"ClassID":"5","SiteClassNumber":"4"},{"ClassID":"4","SiteClassNumber":"3"},{"ClassID":"2","SiteClassNumber":"2"},{"ClassID":"1","SiteClassNumber":"1"}],
+  "CadetCompany":[{"AutoID":"1","CompanyID":"ALPHA"},{"AutoID":"2","CompanyID":"BRAVO"},{"AutoID":"3","CompanyID":"CHARLIE"},{"AutoID":"4","CompanyID":"DELTA"},{"AutoID":"5","CompanyID":"Eagle"}],
+  "CadetPlatoon":[{"AutoID":"1","PlatoonID":"1"},{"AutoID":"2","PlatoonID":"2"},{"AutoID":"3","PlatoonID":"3"},{"AutoID":"4","PlatoonID":"4"},{"AutoID":"5","PlatoonID":"5"}],
+  "CadetSquad":[{"AutoID":"1","SquadID":"1"},{"AutoID":"2","SquadID":"2"},{"AutoID":"3","SquadID":"3"},{"AutoID":"4","SquadID":"4"}],
+  "CadetStatus":[{"AutoID":"1","Status":"Active"},{"AutoID":"2","Status":"Not Applied"},{"AutoID":"3","Status":"Applied"},{"AutoID":"4","Status":"Pending"},{"AutoID":"5","Status":"Accepted"},{"AutoID":"6","Status":"Rejected"},{"AutoID":"7","Status":"Deselected"},{"AutoID":"8","Status":"No Show"},{"AutoID":"9","Status":"Registered"},{"AutoID":"10","Status":"Enrolled"},{"AutoID":"11","Status":"Terminated"},{"AutoID":"12","Status":"Reenrolled"},{"AutoID":"13","Status":"Graduated"},{"AutoID":"14","Status":"Post-Residential"},{"AutoID":"15","Status":"Completed"},{"AutoID":"16","Status":"Deceased"}],
+  "Teachers":[{"TeacherID":"193","PersonName":"Wright,Kristin"},{"TeacherID":"195","PersonName":"Middlebrooks,Crystal"},{"TeacherID":"196","PersonName":"Park,Carol"},{"TeacherID":"197","PersonName":"Evans,Connie"},{"TeacherID":"198","PersonName":"Collins,Thomas"},{"TeacherID":"199","PersonName":"Abbott,Marisa"},{"TeacherID":"200","PersonName":"Harvey,Kelvin"},{"TeacherID":"758","PersonName":"Braddy,Harriett"}],
+  "Counselors":[{"CounselorID":"8","PersonName":"Drummand,Ella"},{"CounselorID":"184","PersonName":"Alexander,Kettischa"},{"CounselorID":"185","PersonName":"Yamnitzky,Jessica"},{"CounselorID":"186","PersonName":"Hamilton,Laura"},{"CounselorID":"971","PersonName":"Schoemann,Jeremy"}],
+  "CaseManagers":[{"CaseManagerID":"10","PersonName":"Kaufman,Amber"},{"CaseManagerID":"181","PersonName":"Bates,Christy"},{"CaseManagerID":"185","PersonName":"Yamnitzky,Jessica"}, {"CaseManagerID":"190","PersonName":"Gilbert,Che"}],
+}

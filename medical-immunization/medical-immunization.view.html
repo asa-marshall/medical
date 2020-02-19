@@ -1,0 +1,82 @@
+
+        <!-- Immunizations Card -->
+        <div class="card">
+            <div class="card-header" ng-class="$ctrl.getCardStyle($ctrl.editMode)">
+                <button class="btn" data-toggle="collapse" data-target="#immunizationCard" aria-expanded="false"
+                        aria-controls="immunizationCard">+
+                </button>
+                Immunizations
+            </div>
+            <div class="card-body collapse" ng-class="$ctrl.getCardStyle($ctrl.editMode)" id="immunizationCard">
+
+                <table class="table minerva-table">
+                    <thead>
+                    <tr>
+                        <th colspan="5">
+                            <button class="btn btnEdit" ng-hide="$ctrl.editMode" ng-click="$ctrl.enableEdits()">Edit</button>
+                            <button class="btn btnSave" ng-hide="!$ctrl.editMode" ng-click="$ctrl.saveEdits()">Save</button>
+                            <button class="btn btnCancel" ng-hide="!$ctrl.editMode" ng-click="$ctrl.cancelEdits()">Cancel</button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Valid Till Date</th>
+                        <th>Notes</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <datalist id=immunizationList>
+                        <option ng-repeat="option in $ctrl.options_immunizationType" value="{{option.ImmunizationType}}"></option>
+                    </datalist>
+                    <tr ng-repeat="tempImmunization in $ctrl.dataList track by $index">
+                        <td><input type="text"
+                                   ng-model="tempImmunization.ImmunizationType"
+                                   list="immunizationList"
+                                   ng-disabled="!$ctrl.editMode || $ctrl.isImmunizationRequired(tempImmunization)=='1' "/></td>
+
+                        <td><input type="date" ng-model="tempImmunization.ImmunizationDate"
+                                   ng-disabled="!$ctrl.editMode"
+                                   ng-class="$ctrl.requiredImmunization(tempImmunization)"/></td>
+                        <td><input type="date" ng-model="tempImmunization.ImmunizationValidTillDate"
+                                   ng-disabled="!$ctrl.editMode"/></td>
+
+                        <td> <textarea rows="1" cols="40"
+                                       style="resize:vertical;"
+                                       ng-model="tempImmunization.ImmunizationNote"
+                                       data-toggle="modal" data-target="#newImmunizationNotesModal{{$index}}"
+                                       readonly></textarea>
+                            <!-- div to pop up textarea when clicked -->
+                            <div class="modal fade" id="newImmunizationNotesModal{{$index}}" role="dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h6>Note</h6>
+                                            <div class="modal-body">
+                                                <textarea rows="5" cols="40"
+                                                          ng-model="tempImmunization.ImmunizationNote"
+                                                          ng-disabled="!$ctrl.editMode"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span ng-if="$ctrl.isImmunizationRequired(tempImmunization)==0">
+                                <button class="btn btnDelete"
+                                        ng-hide="!$ctrl.editMode"
+                                        ng-click="$ctrl.deleteRecord($index)">Delete</button></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <span ng-hide="!$ctrl.editMode">
+                <button class="btn btnCreate" ng-click="$ctrl.createRecord()">Add</button>
+                </span>
+            </div>
+        </div>
+

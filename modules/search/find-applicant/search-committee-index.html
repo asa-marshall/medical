@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Committee</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="./lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="./lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.css">
+    <script src="./lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <script type="text/javascript" src="./lib/angular/angular.js"></script>
+    <script type="text/javascript" src="./lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="./lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/site.css">
+    <link rel="shortcut icon" href="#">  <!-- create icon for minerva project and link to it here -->
+
+    <script src="search-committee-main.module.js"></script>
+    <script src="search-committee-main.config.js"></script>
+    <script src="search-committee-applicants.controller.js"></script>
+
+    <style>
+        .textarea {
+            width: 250px;
+            min-height: 50px;
+            height: auto;
+            border: 2px solid rgba(63, 63, 63, 1);
+        }
+    </style>
+</head>
+<body>
+<h1>Search Committee</h1>
+
+<div ng-app="SearchCommitteeApp" ng-controller="SearchCommitteeController">
+    <!--Menu -->
+    <a href = "./search-committee-index.html"><img  src="../images/logo.jpg"  class="img-fluid img-thumbnail" style="width: 100px;height:100px;"></a>
+    <h2 class="mt-2">TITLE</h2>
+    <ul class="nav nav-tabs">
+        <li><a ng-click="setShowApplicant(-1)">All Applicants</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Applicants<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a  ng-click="setShowApplicant(0)">Applicants</a></li>
+                <li><a  ng-click="setShowApplicant(1)">Candidates</a></li>
+                <li><a  ng-click="setShowApplicant(3)">Selected</a></li>
+                <li><a  ng-click="setShowApplicant(2)">Deadpool</a></li>
+            </ul>
+        </li>
+        <li><a class="nav-item nav-link" href="#">Email Applicants</a></li>
+        <li><a class="nav-item nav-link" href="#">Form</a>
+        <li><a class="nav-item nav-link" href="#">View Documents</a></li>
+        <li><a href="#">LOGIN INFO</a></li>
+    </ul>
+
+    <!--Content-->
+    <div class="container-fluid" style="margin-top:0px">
+        <ng-view>
+
+        </ng-view>
+    </div>
+</div>
+</body>
+</html>
+

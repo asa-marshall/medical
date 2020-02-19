@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>EmailList</title>
+
+    <!-- Used with Bootstrap 4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <!--Donwloaded files and stored in resource folder -->
+    <!--    jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <!-- JQuery needed for  Bootstrap 4 and Angular -->
+    <script src="./lib/jquery/dist/jquery.js"></script>
+
+    <!-- Popper needed for Bootstrap 4 - Bootstrap 4 requires UMD version of popper.js -->
+    <script src="./lib/popper.js/dist/umd/popper.js"></script>
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="./lib/bootstrap/dist/css/bootstrap.css">
+    <script src="./lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Angular 1.7.5 -->
+    <script type="text/javascript" src="./lib/angular/angular.js"></script>
+    <script type="text/javascript" src="./lib/angular-route/angular-route.min.js"></script>
+
+    <!-- iconic icons -->
+    <link href="./lib/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/site.css">
+    <link rel="shortcut icon" href="#">  <!-- create icon for minerva project and link to it here -->
+
+    <script src="search-committee-main.module.js"></script>
+    <script src="main.config.js"></script>
+    <script src="search-committee-email.config.js"></script>
+
+
+</head>
+<body>
+<h1>Email Applicants</h1>
+
+<div ng-app="SearchCommitteeApp" ng-controller="SearchCommitteeEmailController">
+
+    <div class="container-fluid" style="margin-top:0px">
+        <button type="button" class="btn-sm btn-primary"
+                data-toggle="collapse"
+                data-target="#searchColumn">Search
+        </button>
+        <div class="row">
+            <div class="col-2" id="searchColumn" >
+                <div class="card">
+                    <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="applicant_status">Applicant Status</label>
+                        <select ng-model="SearchApplicantStatus"  id="applicant_status"
+                                ng-options="option.statusID as option.description for option in statusOptions"
+                                required>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                    <label for="county"> County</label>
+                    <input type="text" ng-model="SearchPCounty" id="county">
+                    </div>
+                    <div class="form-group">
+                    <label for="city">City</label>
+                    <input type ="text" ng-model="SearchPCity" id="city">
+                    </div>
+                    <button type="button"  class="btn" ng-click="loadApplicants()">Load Applicants</button>
+                </form>
+                    </div>
+                </div>
+            </div>
+
+        <div class="col">
+            <input type="text" placeholder="Enter Filter" ng-model="filterName"/>
+            <button type="button" class="btn-success" ng-click="applyFilter()"><span class="oi oi-reload"></span></button>
+            <button type="button" class="btn-danger" ng-click="filterName='';applyFilter()"><span class="oi oi-circle-x"></span></button>
+
+        <table class="table minerva-table">
+            <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="checkall_list" ng-click="toggleCheckAllList()"/>
+                </th>
+                <th>PersonFN</th>
+                <th>PersonLN</th>
+                <th> <div class="form-check form-check-inline">
+                    <input  class="form-check-input" type="checkbox" ng-model="checkall_email"
+                            id="show_email"
+                            ng-true-value=true ng-false-value=false
+                            ng-click="toggleCheckAllEmail()"/>
+                    <label class="form-check-label" for="show_email">email</label>
+                </div>
+                    <div class="form-check form-check-inline">
+                        <input  class="form-check-input" type="checkbox" ng-model="checkall_guard" id="show_guardian"
+                                ng-click="toggleCheckAllGuard()"
+                                ng-true-value=true ng-false-value=false />
+                        <label  class="form-check-label" for="show_guardian"> guardian </label>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="applicant in filteredList | orderBy:'PersonLN' track by applicant.ApplicantID"  ng-class="getStyle(applicant)" >
+                <td>
+                    <input type="checkbox"
+                           ng-model="applicant.check"
+                           ng-true-value=true
+                           ng-click="toggleCheck(applicant)"
+                           />
+                </td>
+
+                <td ng-click="toggleCheck(applicant)"> {{applicant.PersonFN}}</td>
+                <td ng-click="toggleCheck(applicant)"> {{applicant.PersonLN}}</td>
+                <td>
+                    <span ng-if="checkall_email">
+                    <span ng-repeat="item in applicant.email">
+                        <input type="checkbox" ng-model="item.emailCheck"
+                               ng-disabled="!applicant.check"/>
+                        {{item.ContactInfo}} <br/>
+                    </span>
+                    </span>
+                    <span ng-if="checkall_guard">
+                         <span ng-repeat="item in applicant.guardians">
+                           {{item.GuardianName}}<br/>
+                          <span ng-repeat="guard in item.emails">
+                             <input type="checkbox" ng-model="guard.guardCheck" />
+                              {{guard.ContactInfo}}<br/>
+                          </span>
+                        </span>
+                    </span>
+                </td>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="col-2 bg-light">
+
+            <table class="table minerva-table">
+                <thead>
+                <tr><th>Selected <button type="button" id="clearSelected" ng-click="clearSelected()" class="close">&times;</button>
+                </th></tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="applicant in selectedList | orderBy:'PersonLN'" ng-click="getPreview(applicant)">
+                    <td>{{applicant.PersonLN}}, {{applicant.PersonFN}} </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+            <div class="col">
+                <div class="form-group">
+                <label for="selectedForm">Form:</label>
+                    <select ng-model ="selectedForm"
+                            ng-options="option.FormID as option.FormName for option in forms"
+                            ng-change="setForm(selectedForm)"
+                            id="selectedForm"
+                            required>
+                    <option value="" disabled selected>Select Form</option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="emailSubject"> Subject:</label>
+                    <input type="text" ng-model="emailSubject" placeholder="Enter Subject" id="emailSubject">
+                </div>
+                <textarea ng-model="formpreview"
+                rows="15" cols="40"></textarea>
+                <div class="form-group">
+                <button type="button" class="btn-primary btn-sm" ng-click="sendTo()">Email Individual (to)</button>
+                <button type="button" class="btn-primary btn-sm" ng-click="sendBcc()">Email All  (bcc)</button>
+                </div>
+                <!-- Button to Open the Modal -->
+                <button type="button" ng-hide="true" id="previewButton" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Preview2
+                </button>
+
+                <!-- The Modal -->
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{emailSubject}}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                {{formletter}}
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

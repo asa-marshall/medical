@@ -1,0 +1,97 @@
+
+    <div class="container-fluid" style="margin-top:0">
+        <div class="row">
+            <div class="col-4" id="searchColumn">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="applicant_status">Applicant Status</label>
+                                <select ng-model="$ctrl.search.ApplicantStatus" id="applicant_status"
+                                    ng-options="option.AutoID as option.ApplicantStatus for option in $ctrl.options_ApplicantStatus"
+                                 >
+                                    <option value=""></option>
+                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="search_PersonFN">PersonFN</label>
+                                <input ng-model="$ctrl.search.PersonFN" id="search_PersonFN"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="search_PersonLN">PersonLN</label>
+                                <input ng-model="$ctrl.search.PersonLN" id="search_PersonLN"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="search_PCounty">County</label>
+                                <input ng-model="$ctrl.search.PCounty" id="search_PCounty"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="search_PCity">City</label>
+                                <input ng-model="$ctrl.search.PCity" id="search_PCity"/>
+                            </div>
+                            <button type="button" class="btn" ng-click="$ctrl.loadData()">Search Applicants</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="dataListColumn" class="col">
+                <form ng-submit="$ctrl.applyFilter()">
+                <input type="text" placeholder="Enter Filter" ng-model="$ctrl.filterName"/>
+                <button type="button" class="btn-success" ><span class="oi oi-reload"></span>
+                </button>
+                </form>
+                <table class="table minerva-table">
+                    <thead>
+                    <tr>
+                        <th><input title="check" type="checkbox" ng-model="$ctrl.checkall_list" ng-click="$ctrl.toggleCheckAllList()"/>
+                        </th>
+                        <th>PersonLN</th>
+                        <th>PersonFN</th>
+                        <th>City</th>
+                        <th>County</th>
+                        <th>ApplicantStatus</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="applicant in $ctrl.filteredList | orderBy:'PersonLN' track by applicant.ApplicantID"
+                        ng-class="$ctrl.getStyle(applicant)"
+                        ng-click="$ctrl.toggleCheck(applicant)">
+                        <td>
+                            <input title="check" type="checkbox"
+                                   ng-model="applicant.check"
+                                   ng-true-value=true
+                            />
+                        </td>
+
+                        <td> {{applicant.PersonLN}}</td>
+                        <td> {{applicant.PersonFN}}</td>
+                        <td> {{applicant.PCity}}</td>
+                        <td> {{applicant.PCounty}}</td>
+                        <td> {{$ctrl.getApplicantStatusDescription(applicant.ApplicantStatus)}}</td>
+                    </tbody>
+                </table>
+            </div>
+            <div id="selectedListColumn" class="col-2 bg-light">
+                <table class="table minerva-table">
+                    <thead>
+                    <tr>
+                        <th>Selected
+                            <button type="button" id="clearSelected"
+                                    ng-click="$ctrl.clearSelected()"
+                                    class="alert-danger"
+                            >CLEAR &times;
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="applicant in $ctrl.selectedList | orderBy:'PersonLN'">
+                        <td>{{applicant.PersonLN}}, {{applicant.PersonFN}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+

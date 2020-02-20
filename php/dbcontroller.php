@@ -11,7 +11,7 @@ class DBController {
 	private $user = "root";
 	private $password = "";
 	//private $database = "attendance";
-    private $database ="s94gccodec_master_F2019";
+    private $database ="s94gccodec_master_SP2020_Feb19";
 
 	function __construct() {
 		$this->conn = $this->connectDB();

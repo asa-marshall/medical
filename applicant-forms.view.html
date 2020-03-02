@@ -43,13 +43,10 @@
 
     <script src="applicant-forms.controller.js"></script>
 
-    <script>
 
 
-
-
-    </script>
 </head>
+
 <body>
 
 <h1>Forms</h1>
@@ -132,6 +129,28 @@
                               ng-class="getCardStyle()"
                     ></textarea>
                 </div>
+                <div style="overflow-y:auto;">
+                    <table class="tb1 table minerva-table bg-light table-hover">
+                        <thead>
+                        <tr class="tr1">
+                            <th>SourceFileName</th>
+                            <th>Note</th>
+                            <!-- <th>Path</th> -->
+                            <th ng-hide="!attachMode">function</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="form in list">
+                            <td ng-click="selectAttachment($index)">{{form.SourceFileName}}</td>
+                            <td>{{form.Note}}</td>
+                            <!-- <td>{{form.FilePath}}</td> -->
+                            <td ng-hide="!attachMode">
+                                <button type="button" class="btn btnDelete" ng-click="deleteForms(form)"></button>
+                                <button type="button" class="btn btnEdit" ng-click="disPlay(form)">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table></div>
                 <div class="form-group" ng-hide="!forID" ng-class="getCardStyle()">
 
                     <input type="text"
@@ -167,7 +186,11 @@
                            class="form-control"
                            id="FilePath"/>
                 </div> -->
-                <div ng-hide="!attachMode" ><input ng-model="file" type="file" id="file" name="file" fd-input />
+
+
+
+
+                <div class="btn btn-primary btn-sm float-left" ng-hide="!attachMode" ><input class="file-path validate" type="file" id="file" name="file" />
                 </div>
 
                 <div ng-hide="!attachMode" class="form-group">
@@ -196,20 +219,7 @@
                     </tbody>
                 </table>
 
-                <table  class="table minerva-table bg-light table-hover">
-                    <thead>
-                    <tr>
-                        <th>Attached Files</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="form in list">
-                        <td ng-click="selectAttachment($index)">{{form.SourceFileName}}</td>
-                        <td ng-hide="!attachMode"><button type="button"  class="btn btnDelete" ng-click="deleteForms(form)"></button>
-                            <button type="button"  class="btn btnEdit" ng-click="disPlay(form)"></td>
-                    </tr>
-                    </tbody>
-                </table>
+
             </div>
         </div>
     </div>

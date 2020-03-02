@@ -305,19 +305,17 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                 });
         };
 
-        $scope.getfullPath = function getfullPath(){
-            $('#file').on('change',function ()
-            {
-                var filePath = $(this).val();
-                console.log(filePath);
-            });
-        };
+
+
 
         //===============Insert Form=================================
         $scope.insertForms = function insertForms(SourceFileName, Note) {
-            $scope.getfullPath();
 
-            var f = document.getElementById('file').files[0];
+            // $scope.hi = $scope.getfullPath();
+
+            // console.log($scope.hi);
+            var f = document.getElementById('file').value;
+            console.log(f);
             var post = {};
             // var file = document.getElementById("file");
             // file.addEventListener("change", function() {
@@ -334,7 +332,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
             post.SourceFileName = SourceFileName;
             post.Note = Note;
-            post.FilePath = f.name;
+            post.FilePath = f;
 
             $http({
                 method: "POST",

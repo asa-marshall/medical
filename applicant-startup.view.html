@@ -42,34 +42,134 @@
     <script src="modules/search/find-applicant/find-applicant-panel.component.js"></script>
 
     <script src="applicant.controller.js"></script>
+
+    <style>
+        .myButton {
+            background-color: darkblue;
+            color: white;
+            border: 2px solid darkblue;
+            width: 100%;
+        }
+
+        .myButton:hover {
+            background-color: white;
+            color: darkblue;
+        }
+
+
+        .myButtonActive {
+            background-color: white;
+            color: darkblue;
+            border: 2px solid darkblue;
+            width: 100%;
+        }
+
+        .myButton-Green {
+            background-color: darkseagreen;
+            color: white;
+            border: 2px solid darkseagreen;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Applicant</h1>
+
+<!-- Start Controller -->
 <div ng-app="myApplicant" ng-controller="ApplicantController">
 
     <div class="container-fluid" style="margin-top:0">
-        <div class="row alert-info">
-            <div class="col">
-                    <button data-toggle="collapse"
-                            data-target="#searchColumn" > Search </button>
+        <div class="row">
+            <h1>Applicant</h1>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <button class="myButton" data-toggle="collapse"
+                        data-target="#searchColumn" > Search </button>
+            </div>
+            <div class="col-10">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="myButtonActive" onclick="window.location.href = './applicant-startup.view.html'">Summary Table</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="myButton" onclick="window.location.href = './applicant-email.view.html'">Email Applicants</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="myButton" onclick="window.location.href = './minseung-applicant-forms.view.html'">Email Forms</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-2 "  id="searchColumn">
+            <div class="col-2"  id="searchColumn">
                 <find-applicant-panel></find-applicant-panel>
             </div>
 
             <div class="col alert alert-danger" ng-show="applicantIDError">
                 You must select an Applicant to begin.
             </div>
-            <div class="col=10" ng-hide="applicantIDError">
+            <div class="col-10" ng-hide="applicantIDError">
+                <div class="container-fluid">
+                    <div class="row">
+                        <table class="table minerva-table" style="margin-top: 10px;">
+                            <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Region</th>
+                                <th>Site</th>
+                                <th>Document 1</th>
+                                <th>Document 2</th>
+                                <th>Document 3</th>
+                                <th>Document 4</th>
+                                <th>Document 5</th>
 
-                <h1> PLACE YOUR CODE HERE</h1>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- ng-repeat based on search applicant results -->
+                            <tr>
+                                <td>John Smith</td>
+                                <td>3</td>
+                                <td>Milledgeville</td>
+                                <!-- NG-Repeat Missing documents in td tag -->
+                                <td>Document 1 &#10003;</td>
+                                <td>Document 2 &#10005;</td>
+                                <td>Document 3</td>
+                                <td>Document 4</td>
+                                <td>Document 5</td>
+                            </tr>
+                            <tr>
+                                <td>George Washington</td>
+                                <td>2</td>
+                                <td>Milledgeville</td>
+                                <td>Document 1 &#10003;</td>
+                                <td>Document 2 &#10005;</td>
+                                <td>Document 3</td>
+                                <td>Document 4</td>
+                                <td>Document 5</td>
+                            </tr><tr>
+                                <td>Gita Phelps</td>
+                                <td>6</td>
+                                <td>Milledgeville</td>
+                                <td>Document 1 &#10003;</td>
+                                <td>Document 2 &#10005;</td>
+                                <td>Document 3</td>
+                                <td>Document 4</td>
+                                <td>Document 5</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!-- End Controller -->
 
 
 

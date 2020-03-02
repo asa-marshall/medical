@@ -1,3 +1,4 @@
+//test comment
 angular.module('myApplicant')
     .controller('ApplicantController', ['$scope', '$http', '$rootScope', '$window',
         function ApplicantController($scope, $http, $rootScope, $window) {

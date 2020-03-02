@@ -42,6 +42,13 @@
     <script src="modules/search/find-applicant/find-applicant-panel.component.js"></script>
 
     <script src="applicant-forms.controller.js"></script>
+
+    <script>
+
+
+
+
+    </script>
 </head>
 <body>
 
@@ -71,13 +78,16 @@
                     <tr ng-repeat="form in dataList track by $index"
                         ng-class="getStyle($index)"
 
-                     >
+                    >
                         <td  ng-click="selectForm($index)"
-                                ng-disabled="editMode">{{form.FormName}}</td>
+                             ng-disabled="editMode">{{form.FormName}}</td>
                     </tr>
                     </tbody>
 
                 </table>
+                <div><a href="../medical/applicant-email.view.html">
+                    <button class=" btn btn-success ">Back</button>
+                </a></div>
             </div>
 
             <div class="col" id="formPreviewColumn" ng-class="alert-info">
@@ -86,14 +96,18 @@
                         <thead>
                         <tr>
                             <th>
-                    <button class="btn btnEdit"
-                            ng-hide="editMode"  ng-click="enableEdits()">Edit</button>
-                    <button type="button" class="btn btnSave"
-                            ng-show="editMode" ng-click="saveEdits()">Save</button>
-                    <button type="button"
-                            ng-show="editMode" class="btn btnDelete" ng-click="deleteRecord()">Delete</button>
-                    <button type="button"
-                            ng-show="editMode" class="btn btnCancel" ng-click="cancelEdits()">Cancel</button>
+                                <button class="btn btnEdit"
+                                        ng-hide="editMode"  ng-click="enableEdits()">Edit</button>
+                                <button type="button" class="btn btnSave"
+                                        ng-show="editMode" ng-click="saveEdits()">Save</button>
+                                <button type="button"
+                                        ng-show="editMode" class="btn btnDelete" ng-click="deleteRecord()">Delete</button>
+                                <button type="button"
+                                        ng-show="editMode" class="btn btnCancel" ng-click="cancelEdits()">Cancel</button>
+                                <button type="button"
+                                        ng-show="editMode" class="btn" ng-click="createAttach()">File Attach</button>
+
+
                             </th>
                         </tr>
                         </thead>
@@ -110,16 +124,64 @@
 
                 <div class="form-group" ng-class="getCardStyle()">
                     <label for="formText">Form Text</label>
-                <textarea ng-model="formPreview.FormText"
-                          rows="20"
-                          id="formText"
-                          class="form-control"
-                          ng-disabled="!editMode"
-                          ng-class="getCardStyle()"
-                ></textarea>
+                    <textarea ng-model="formPreview.FormText"
+                              rows="20"
+                              id="formText"
+                              class="form-control"
+                              ng-disabled="!editMode"
+                              ng-class="getCardStyle()"
+                    ></textarea>
+                </div>
+                <div class="form-group" ng-hide="!forID" ng-class="getCardStyle()">
+
+                    <input type="text"
+                           ng-model="FormAttachmentsID"
+                           ng-disabled="!editMode"
+                           class="form-control"
+                           id="Note"/>
                 </div>
 
+                <div class="form-group" ng-hide="!attachMode" ng-class="getCardStyle()">
+                    <label for="SourceFileName">SourceFileName</label>
+                    <input type="text"
+                           ng-model="SourceFileName"
+                           ng-disabled="!editMode"
+                           class="form-control"
+                           id="SourceFileName"/>
                 </div>
+
+                <div class="form-group" ng-hide="!attachMode" ng-class="getCardStyle()">
+                    <label for="Note">Note</label>
+                    <input type="text"
+                           ng-model="Note"
+                           ng-disabled="!editMode"
+                           class="form-control"
+                           id="Note"/>
+                </div>
+
+                <!-- <div class="form-group" ng-hide="!attachMode" ng-class="getCardStyle()">
+                    <label for="FilePath">Path</label>
+                    <input type="text"
+                           ng-model="formPreview.FilePath"
+                           ng-disabled="!editMode"
+                           class="form-control"
+                           id="FilePath"/>
+                </div> -->
+                <div ng-hide="!attachMode" ><input ng-model="file" type="file" id="file" name="file" fd-input />
+                </div>
+
+                <div ng-hide="!attachMode" class="form-group">
+                    <button type="button" class="btn  btnCreate" ng-click="insertForms(SourceFileName, Note)">Add</button>
+                    <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentsID, SourceFileName, Note)">Edit</button></span>
+                </div>
+                <div ng-hide = "!updateMode">
+                    <div ng-hide="!attachMode " class="form-group">
+
+                    </div></div>
+                <!-- <button type="button" ng-hide = "!attachMode" class="btn btnCreate" ng-click="createAttach()">ADD</button> -->
+
+
+            </div>
 
             <div class="col=2" id="formFieldsColumn">
 
@@ -133,6 +195,21 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <table  class="table minerva-table bg-light table-hover">
+                    <thead>
+                    <tr>
+                        <th>Attached Files</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="form in list">
+                        <td ng-click="selectAttachment($index)">{{form.SourceFileName}}</td>
+                        <td ng-hide="!attachMode"><button type="button"  class="btn btnDelete" ng-click="deleteForms(form)"></button>
+                            <button type="button"  class="btn btnEdit" ng-click="disPlay(form)"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -141,4 +218,5 @@
 
 
 </body>
+
 </html>

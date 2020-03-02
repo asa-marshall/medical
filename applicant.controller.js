@@ -13,7 +13,6 @@ angular.module('myApplicant')
             //when a new applicant has been sected.
             //source: http://www.binaryintellect.net/articles/5d8be0b6-e294-457e-82b0-ba7cc10cae0e.aspx
             $scope.$on("reloadApplicantIDEvent", function (evt, data) {
-
                 $scope.init();
             });
 

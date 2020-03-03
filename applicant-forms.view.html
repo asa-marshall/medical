@@ -129,13 +129,18 @@
                               ng-class="getCardStyle()"
                     ></textarea>
                 </div>
+
+
+                <!-- ==============Form Attachment Part ==================-->
+
+                <!-- Table for FormAttachment -->
                 <div style="overflow-y:auto;">
                     <table class="tb1 table minerva-table bg-light table-hover">
                         <thead>
                         <tr class="tr1">
                             <th>SourceFileName</th>
                             <th>Note</th>
-                            <!-- <th>Path</th> -->
+                           
                             <th ng-hide="!attachMode">function</th>
                         </tr>
                         </thead>
@@ -143,7 +148,7 @@
                         <tr ng-repeat="form in list">
                             <td ng-click="selectAttachment($index)">{{form.SourceFileName}}</td>
                             <td>{{form.Note}}</td>
-                            <!-- <td>{{form.FilePath}}</td> -->
+                   
                             <td ng-hide="!attachMode">
                                 <button type="button" class="btn btnDelete" ng-click="deleteForms(form)"></button>
                                 <button type="button" class="btn btnEdit" ng-click="disPlay(form)">
@@ -151,6 +156,7 @@
                         </tr>
                         </tbody>
                     </table></div>
+                <!-- Form for formAttachment -->
                 <div class="form-group" ng-hide="!forID" ng-class="getCardStyle()">
 
                     <input type="text"
@@ -201,11 +207,11 @@
                     <div ng-hide="!attachMode " class="form-group">
 
                     </div></div>
-                <!-- <button type="button" ng-hide = "!attachMode" class="btn btnCreate" ng-click="createAttach()">ADD</button> -->
+              
 
 
             </div>
-
+            <!-- Merge Field Part -->
             <div class="col=2" id="formFieldsColumn">
 
                 <table class="table minerva-table bg-light table-hover">

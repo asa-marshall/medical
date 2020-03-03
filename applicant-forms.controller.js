@@ -253,6 +253,16 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         };
 
+        // $scope.selectAttachment = function selectAttachment(index) {
+        //         console.log(index);
+
+        //         $scope.attachmentPreview = $scope.dataList2[index];
+        //         $scope.selectedIndex2 = index;
+        //         // $scope.attachMode = true;
+        //         console.log(attachmentPreview);
+
+
+        // };
 
         $scope.init = function init() {
             $scope.getData();
@@ -263,7 +273,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         /////////////////////////form Attachment
         $scope.list = [];
-        //TODO: Form Attachment - Get
+
         $http({
             method: "POST",
             url: "./php/form-attachment_getForm.php",
@@ -298,7 +308,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
 
 
-        //TODO: Form Attachment - Insert
+        //===============Insert Form=================================
         $scope.insertForms = function insertForms(SourceFileName, Note) {
 
             // $scope.hi = $scope.getfullPath();
@@ -338,7 +348,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                 });
         };
 
-        //TODO: Form Attachment - DELETE
+        //================Delete Form=================================
         $scope.deleteForms = function deleteForms(form) {
 
             var post = {};
@@ -358,7 +368,8 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                     alert("Error deleting records");
                 });
         };
-        //TODO: Form Attachment - Update
+
+//===============Update Form=================================
         $scope.updateMode = false;
         $scope.forID = false;
 
@@ -366,22 +377,26 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             $scope.updateMode = true;
             $scope.SourceFileName = form.SourceFileName;
             $scope.Note = form.Note;
+            console.log(form.FilePath);
             $scope.FilePath = form.FilePath;
             $scope.FormAttachmentID = form.FormAttachmentID;
         }
 
-        $scope.updateForms = function updateForms(FormAttachmentID, SourceFileName, FilePath) {
+        $scope.updateForms = function updateForms(FormAttachmentID, SourceFileName, Note, FilePath) {
             console.log("gd");
             var post = {};
             $scope.attachMode = true;
 
 
-
+            var f = document.getElementById('file').value;
+            
+            var post = {};
+           
             post.FormAttachmentID = FormAttachmentID;
             post.fkFormID = $scope.formPreview.FormID;
             post.SourceFileName =SourceFileName;
             post.Note = Note;
-            post.FilePath = FilePath;
+            post.FilePath = f;
 
             $http({
                 method: "POST",
@@ -399,3 +414,37 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
 
     }
+
+/////////////////////////// UPLOAD FILE PART/////////////////////////////////
+
+
+
+]);
+
+
+// myapplicant.factory('httpPostFactory', function ($http) {
+//     return function (file, data, callback) {
+//         $http({
+//             url: file,
+//             method: "POST",
+//             data: data,
+//             headers: { 'Content-Type': undefined }
+//         }).success(function (response) {
+//             callback(response);
+//         });
+//     };
+// });
+
+// myApplicant.directive('fdInput', [function () {
+//     return {
+//         link: function (scope, element, attrs) {
+//             element.on('change', function  (evt) {
+//                 var files = evt.target.files;
+//                 console.log(files[0].name);
+//                 console.log(files[0].size);
+//             });
+//         }
+//     }
+// }]);
+
+//testing branch merge

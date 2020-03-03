@@ -178,14 +178,14 @@
                            id="Note"/>
                 </div>
 
-                <!-- <div class="form-group" ng-hide="!attachMode" ng-class="getCardStyle()">
+                <div class="form-group" ng-hide="!forID" ng-hide="!attachMode" ng-class="getCardStyle()">
                     <label for="FilePath">Path</label>
                     <input type="text"
-                           ng-model="formPreview.FilePath"
+                           ng-model="FilePath"
                            ng-disabled="!editMode"
                            class="form-control"
                            id="FilePath"/>
-                </div> -->
+                </div>
 
 
 
@@ -195,7 +195,7 @@
 
                 <div ng-hide="!attachMode" class="form-group">
                     <button type="button" class="btn  btnCreate" ng-click="insertForms(SourceFileName, Note)">Add</button>
-                    <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentID, SourceFileName, Note)">Edit</button></span>
+                    <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentID, SourceFileName, Note, FilePath)">Edit</button></span>
                 </div>
                 <div ng-hide = "!updateMode">
                     <div ng-hide="!attachMode " class="form-group">

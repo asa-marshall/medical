@@ -10,7 +10,7 @@ $FilePath = $_POST['FilePath'];
 
 $sql="UPDATE tblFormAttachments
      SET  SourceFileName='$SourceFileName', Note= '$Note', FilePath = '$FilePath' 
-     WHERE FormAttachmentsID='$FormAttachmentID'";
+     WHERE FormAttachmentID='$FormAttachmentID'";
 
 $result = $conn->runSelectQuery($sql);
 $data = array();

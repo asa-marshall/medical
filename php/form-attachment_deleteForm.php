@@ -2,10 +2,10 @@
 require_once './dbcontroller.php';
 $conn = new DBController();
 
-$FormAttachmentsID= $_POST['FormAttachmentID'];
+$FormAttachmentID= $_POST['FormAttachmentID'];
 
 
-echo($FormAttachmentsID);
+echo($FormAttachmentID);
 $sql="DELETE FROM tblFormAttachments WHERE FormAttachmentID='$FormAttachmentID'";
 
 $result = $conn->runSelectQuery($sql);

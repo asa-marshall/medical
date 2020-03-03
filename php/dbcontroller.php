@@ -10,7 +10,6 @@ class DBController {
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	//private $database = "attendance";
     private $database ="s94gccodec_master_SP2020_Feb19";
 
 	function __construct() {
@@ -72,13 +71,10 @@ class DBController {
     {
        $safe_str =  mysqli_real_escape_string($this->conn, $str);
 
-      // $safe_str = $mysqli->real_escape_string($str);
-
        return $safe_str;
     }
     function runSelectQueryArray($query) //Used to run a select query and return array of rows
     {
-        //echo $query;
          $result = mysqli_query($this->conn,$query);
          $result_array = array();
 
@@ -272,8 +268,6 @@ class DBController {
             }
         }
 
-        // $keys = array_keys($data);
-        //$values = array_values($data);
 
         $valarray = array();
 

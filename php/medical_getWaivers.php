@@ -14,8 +14,6 @@ if (!isset($_SESSION['loggedIn'])) {
 }
 else{
         $id=-1;
-        //$id=$_SESSION['fkClassDetailID'];
-        //$date =$_POST['WaiverDate'];
         $date=DateTime::createFromFormat('Y-m-d', "2019-11-12")->format('Y-m-d');
 
         $getString= "Select URL From tblMedWaivers WHERE WaiverDate ='$date' AND fkClassDetailID='$id'";

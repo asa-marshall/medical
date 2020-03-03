@@ -10,7 +10,6 @@ $directory= "datas";
 $sql= "SELECT * FROM tlkpApplicationFiles";
 $result = $conn->runSelectQuery($sql);
 echo '{ "data":[';
-//print_r($result);
 if ($result->num_rows > 0)
 {
     $count=0;

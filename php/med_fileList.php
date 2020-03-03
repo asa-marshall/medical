@@ -14,7 +14,6 @@ if(isset($_POST['directory'])){
 }
 if(isset($_GET['directory'])){
     $directory =  basename(filter_input(INPUT_GET, "directory"));
-    //  echo "$_GET:  $_GET";
 }
 if(isset($_POST['ClassDetailID'])){
     $ApplicantID=filter_input(INPUT_POST,"ClassDetailID");
@@ -27,7 +26,6 @@ $MedFileAttachementID=$_POST['MedFileAttachmentID'];
 $sql = "SELECT * FROM tblMedFileAttachments WHERE MedFileAttachmentID= '$MedFileAttachementID'";
 $result = $conn->runSelectQuery($sql);
 echo '{ "data":[';
-//print_r($result);
 if ($result->num_rows > 0)
 {
     $count=0;

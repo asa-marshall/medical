@@ -276,7 +276,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         $http({
             method: "POST",
-            url: "./php/forms_getFormAttachments.php",
+            url: "./php/form-attachment_getForm.php",
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
         }).then(function (result) {
                 $scope.list = result.data;
@@ -294,7 +294,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
             $http({
                 method: "POST",
-                url: "./php/forms_getFormAttachments.php",
+                url: "./php/form-attachment_getForm.php",
                 data: Object.toparams(post),
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }
             }).then(function (result) {
@@ -336,7 +336,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
             $http({
                 method: "POST",
-                url: "./php/forms_createFormAttachments.php",
+                url: "./php/form-attachment_createForm.php",
                 data: Object.toparams(post),
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }
             }).then(function (result) {
@@ -353,12 +353,12 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
             var post = {};
 
-            post.FormAttachmentsID = form.FormAttachmentsID;
+            post.FormAttachmentID = form.FormAttachmentID;
 
 
             $http({
                 method: "POST",
-                url:"./php/forms_deleteFormAttachments.php",
+                url:"./php/form-attachment_deleteForm.php",
                 data: Object.toparams(post),
                 headers:{"Content-Type":"application/x-www-form-urlencoded"}
             }).then(function(result){
@@ -378,17 +378,17 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             $scope.SourceFileName = form.SourceFileName;
             $scope.Note = form.Note;
             $scope.FilePath = form.FilePath;
-            $scope.FormAttachmentsID = form.FormAttachmentsID;
+            $scope.FormAttachmentID = form.FormAttachmentID;
         }
 
-        $scope.updateForms = function updateForms(FormAttachmentsID, SourceFileName, FilePath) {
+        $scope.updateForms = function updateForms(FormAttachmentID, SourceFileName, FilePath) {
             console.log("gd");
             var post = {};
             $scope.attachMode = true;
 
 
 
-            post.FormAttachmentsID = FormAttachmentsID;
+            post.FormAttachmentID = FormAttachmentID;
             post.fkFormID = $scope.formPreview.FormID;
             post.SourceFileName =SourceFileName;
             post.Note = Note;
@@ -396,7 +396,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
             $http({
                 method: "POST",
-                url:"./php/forms_updateFormAttachments.php",
+                url:"./php/form-attachment_updateForm.php",
                 data: Object.toparams(post),
                 headers:{"Content-Type":"application/x-www-form-urlencoded"}
             }).then(function(result){

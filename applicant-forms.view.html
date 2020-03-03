@@ -154,7 +154,7 @@
                 <div class="form-group" ng-hide="!forID" ng-class="getCardStyle()">
 
                     <input type="text"
-                           ng-model="FormAttachmentsID"
+                           ng-model="FormAttachmentID"
                            ng-disabled="!editMode"
                            class="form-control"
                            id="Note"/>
@@ -195,7 +195,7 @@
 
                 <div ng-hide="!attachMode" class="form-group">
                     <button type="button" class="btn  btnCreate" ng-click="insertForms(SourceFileName, Note)">Add</button>
-                    <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentsID, SourceFileName, Note)">Edit</button></span>
+                    <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentID, SourceFileName, Note)">Edit</button></span>
                 </div>
                 <div ng-hide = "!updateMode">
                     <div ng-hide="!attachMode " class="form-group">

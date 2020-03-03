@@ -14,13 +14,13 @@ $sql="INSERT INTO tblFormAttachments(fkFormID, SourceFileName, Note, FilePath) V
 $result = $conn->runSelectQuery($sql);
 $data = array();
 
-   if ($result->num_rows > 0) {
+if ($result->num_rows > 0) {
 
-        while ($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
 
-            $data[] = $row;
-        }
+        $data[] = $row;
     }
+}
 
 echo json_encode($data);
 ?>

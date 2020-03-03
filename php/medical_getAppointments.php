@@ -31,17 +31,7 @@ else {
     $siteName = $row['SiteName'];
 
     $sql = "SELECT Date,Type,Notes FROM tblAppointments WHERE fkClassDetailID=\"$classID\"";
-/*
-    $sql = "SELECT tblAppointments.Date, tblAppointments.Reason, tblAppointments.Notes
-            FROM tblAppointments
-            JOIN tblClassDetails
-            ON tblAppointments.fkClassDetailID = tblClassDetails.ClassDetailID
-            JOIN tblCadets
-            ON tblClassDetails.fkCadetID = tblCadets.CadetID
-            JOIN tblPeople
-            ON tblCadets.fkPersonID = tblPeople.PersonID
-            AND tblPeople.PersonID = 1";
-*/
+
     $result = $conn->runSelectQuery($sql);
 
 

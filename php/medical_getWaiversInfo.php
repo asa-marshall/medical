@@ -4,8 +4,6 @@ require_once 'dbcontroller.php';
 $connection = new DBController();
 
 
-//$_SESSION['ClassDetailID']=-1;
-//Ricky did this ^
 if(isset($_SESSION['thisDetailID'])){
     $classID = $_SESSION['thisDetailID'];
 }
@@ -21,7 +19,6 @@ if (!isset($_SESSION['loggedIn'])) {
     $status = "error";
     $errorMsg = "You must select a cadet first!";
 } else {
-    //$classDetailID = $_SESSION['ClassDetailID'];
     $sql = "SELECT *
 			FROM tblMedWaiversInfo wav
 			WHERE wav.fkClassDetailID = '$classID'";

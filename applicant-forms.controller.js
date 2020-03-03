@@ -253,17 +253,6 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         };
 
-        // $scope.selectAttachment = function selectAttachment(index) {
-        //         console.log(index);
-
-        //         $scope.attachmentPreview = $scope.dataList2[index];
-        //         $scope.selectedIndex2 = index;
-        //         // $scope.attachMode = true;
-        //         console.log(attachmentPreview);
-
-
-        // };
-
         $scope.init = function init() {
             $scope.getData();
             $scope.loadFormFields();
@@ -311,18 +300,9 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
         //===============Insert Form=================================
         $scope.insertForms = function insertForms(SourceFileName, Note) {
 
-            // $scope.hi = $scope.getfullPath();
-
-            // console.log($scope.hi);
             var f = document.getElementById('file').value;
             console.log(f);
             var post = {};
-            // var file = document.getElementById("file");
-            // file.addEventListener("change", function() {
-            // for (var i = 0; i < file.files.length; i++) {
-            //     console.log(file.files[i].name);
-            // }
-            // }, false);
             console.log($scope.formPreview.FormID + "gdgd");
             if($scope.formPreview.FormID ==""){
                 console.log($scope.selected);
@@ -413,34 +393,4 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
 /////////////////////////// UPLOAD FILE PART/////////////////////////////////
 
-
-
 ]);
-
-
-// myapplicant.factory('httpPostFactory', function ($http) {
-//     return function (file, data, callback) {
-//         $http({
-//             url: file,
-//             method: "POST",
-//             data: data,
-//             headers: { 'Content-Type': undefined }
-//         }).success(function (response) {
-//             callback(response);
-//         });
-//     };
-// });
-
-// myApplicant.directive('fdInput', [function () {
-//     return {
-//         link: function (scope, element, attrs) {
-//             element.on('change', function  (evt) {
-//                 var files = evt.target.files;
-//                 console.log(files[0].name);
-//                 console.log(files[0].size);
-//             });
-//         }
-//     }
-// }]);
-
-//testing branch merge conflict

@@ -253,6 +253,8 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         };
 
+ 
+
         $scope.init = function init() {
             $scope.getData();
             $scope.loadFormFields();
@@ -299,33 +301,45 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         //===============Insert Form=================================
         $scope.insertForms = function insertForms(SourceFileName, Note) {
+            var form_data = new FormData();
+            angular.forEach($scope.files, function(file){
+                form_data.append('file', file);
+            });
+            // var f = document.getElementById('file').value;
+            // console.log(f);
+            // var post = {};
 
-            var f = document.getElementById('file').value;
-            console.log(f);
-            var post = {};
-            console.log($scope.formPreview.FormID + "gdgd");
             if($scope.formPreview.FormID ==""){
-                console.log($scope.selected);
-                post.fkFormID = $scope.selectedIndex;
+                console.log("HILO");
+                form_data.append("fkFormID", $scope.selectedIndex);
+                // post.fkFormID = $scope.selectedIndex;
             }else{
-                post.fkFormID = $scope.formPreview.FormID;}
+                console.log("HI");
+                form_data.append("fkFormID", $scope.formPreview.FormID);
+                // post.fkFormID = $scope.formPreview.FormID;
+                }
 
-            post.SourceFileName = SourceFileName;
-            post.Note = Note;
-            post.FilePath = f;
+            form_data.append("SourceFileName", SourceFileName);
+            form_data.append("Note", Note);
+            // post.Note = Note;
+            // post.FilePath = f;
 
-            $http({
-                method: "POST",
-                url: "./php/form-attachment_createForm.php",
-                data: Object.toparams(post),
-                headers: { "Content-Type": "application/x-www-form-urlencoded" }
-            }).then(function (result) {
-                    alert("record inserted");
-                    $scope.loadForms1();
-                },
-                function () {
-                    alert("Error deleting records");
-                });
+            $http.post('./php/form-attachment_createForm.php', form_data,
+            {
+                transformRequest: angular.identity,
+                headers: {'Content-type': undefined, 'Process-Data': false}
+            }
+        ).then(function(){
+            alert("record updated");  
+            $scope.loadForms1();
+            },
+            function(){
+                alert("Error inserting records");
+            }, 1000);
+            
+            
+       
+     
         };
 
         //================Delete Form=================================
@@ -361,40 +375,48 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             $scope.FilePath = form.FilePath;
             $scope.FormAttachmentID = form.FormAttachmentID;
         }
-
-        $scope.updateForms = function updateForms(FormAttachmentID, SourceFileName, Note, FilePath) {
-            console.log("gd");
-            var post = {};
-            $scope.attachMode = true;
-
-
-            var f = document.getElementById('file').value;
-            
-            var post = {};
-           
-            post.FormAttachmentID = FormAttachmentID;
-            post.fkFormID = $scope.formPreview.FormID;
-            post.SourceFileName =SourceFileName;
-            post.Note = Note;
-            post.FilePath = f;
-
-            $http({
-                method: "POST",
-                url:"./php/form-attachment_updateForm.php",
-                data: Object.toparams(post),
-                headers:{"Content-Type":"application/x-www-form-urlencoded"}
-            }).then(function(result){
-                    alert("record updated");
-                    $scope.loadForms1();
-                },
-                function(){
-                    alert("Error updating records");
-                });
-        };
+        
+        $scope.updateForms = function(FormAttachmentID, SourceFileName, Note){
+            var form_data = new FormData();
+            angular.forEach($scope.files, function(file){
+                form_data.append('file', file);
+            });
+            form_data.append('FormAttachmentID', FormAttachmentID);
+            form_data.append("SourceFileName", SourceFileName);
+            form_data.append("Note", Note);
+            form_data.append("fkFormID", $scope.formPreview.FormID);
+            // console.log(form)
+            $http.post('./php/update.php', form_data,
+            {
+                transformRequest: angular.identity,
+                headers: {'Content-type': undefined, 'Process-Data': false}
+            }
+        ).success(function(result){
+            alert(response);
+        });
+        }
 
 
     }
 
 /////////////////////////// UPLOAD FILE PART/////////////////////////////////
 
+
+
 ]);
+
+
+
+
+myApplicant.directive("fileInput", function ($parse) {
+    return {
+        link: function ($scope, element, attrs) {
+            element.on("change", function (event) {
+                var files = event.target.files;
+                console.log(files[0].name);
+                $parse(attrs.fileInput).assign($scope, element[0].files);
+                $scope.$apply();
+            });
+        }
+    }
+})

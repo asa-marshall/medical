@@ -17,6 +17,10 @@ angular.module('myApplicant')
 
             $scope.init();
 
+
+            $scope.applicants = [];
+            $scope.applicants = JSON.parse($window.localStorage.getItem("temp_applicants"));
+
         }
 
     ]);

@@ -8,7 +8,7 @@ $conn = new DBController();
 
 $sql = "SELECT a.ApplicantID, a.fkPersonID,a.ApplicantStatus,
                p.PSalutation, p.PersonFN, p.PersonLN, p.PersonMN, p.PersonGenQual, p.PCity, p.PCounty, p.PDOB
-        FROM tblApplicants a, tblAppPeople p 
+        FROM tblApplicants a, tblAppPeople p tlkp
         WHERE p.PersonID = a.fkPersonID";
 
 if(isset($_POST['ApplicantStatus'])) {
@@ -44,6 +44,12 @@ if(isset($_POST['PersonLN'])) {
         $sql = "$sql AND p.PersonLN LIKE '%$PersonLN%'";
     }
 }
+
+
+
+//SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName
+//Query for calculating regionID from county
+$regionSQL = "SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName";
 
 $data = array();
 

@@ -20,6 +20,8 @@ angular.module("search.findApplicant")
                             PersonLN:"",
                             PCity: "",
                             PCounty:"",
+                            PRegion:"",
+                            PSite:"",
                             ApplicantStatus: "",
                             ApplicantID:""
                         };

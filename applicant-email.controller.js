@@ -108,10 +108,13 @@ angular.module('myApplicant')
                 //merge letter
                 body = $scope.mailMerge(body, applicant);
 
-
+                console.log($scope.getGuardiansEmails(applicant));
+                console.log(Object.toparams(mailObj));
                 mailObj.body = body;
-                var str = "mailto:" + $scope.getGuardiansEmails(applicant) + "?" + Object.toparams(mailObj);
-
+                var str = "mailto:" + $scope.getGuardiansEmails(applicant) + "?" + Object.toparams(mailObj)
+         
+                
+                console.log(str);
                 $window.open(str);
             };
             $scope.sendBcc = function sendBcc() {

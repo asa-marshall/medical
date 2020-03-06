@@ -21,7 +21,22 @@ angular.module('myApplicant')
             $scope.applicants = [];
             $scope.applicants = JSON.parse($window.localStorage.getItem("temp_applicants"));
 
-            $scope.documents = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            var request = {
+                method: "get",
+                url: 'emailAng.php',
+                dataType: "json",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"}
+            };
+
+            $scope.documents = [];
+
+            $http(request)
+                .then(function (result) {
+                    $scope.document = result.data;
+                }, function () {
+                    alert("Error deleting records");
+                });
+
         }
 
     ]);

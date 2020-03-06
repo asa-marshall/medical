@@ -6,8 +6,8 @@ require_once './dbcontroller.php';
 $conn = new DBController();
 
 
-$sql = "SELECT a.ApplicantID, a.fkPersonID,a.ApplicantStatus,
-               p.PSalutation, p.PersonFN, p.PersonLN, p.PersonMN, p.PersonGenQual, p.PCity, p.PCounty, p.PDOB
+$sql = "SELECT a.ApplicantID, a.fkPersonID, a.ApplicantStatus, a.fkSiteID,
+               p.PSalutation, p.PersonFN, p.PersonLN, p.PersonMN, p.PersonGenQual, p.PCity, p.PCounty, p.PDOB, p.PRegion
         FROM tblApplicants a, tblAppPeople p
         WHERE p.PersonID = a.fkPersonID";
 
@@ -45,13 +45,20 @@ if(isset($_POST['PersonLN'])) {
     }
 }
 
-/*if(isset($_POST['PRegion'])) {
-    $PRegion=  $conn->sanitize($_POST['PersonLN']);
+if(isset($_POST['PSite'])) {
+    $siteID=  $conn->sanitize($_POST['PSite']);
 
-    if($PersonLN!="") {
-        $sql = "$sql AND p.PCounty LIKE c.CountyName AND c.RegionID = r.AutoID";
+    if($siteID!="") {
+        $sql = "$sql AND a.fkSiteID LIKE '%$siteID%'";
     }
-}*/
+}
+
+if(isset($_POST['PRegion'])) {
+    $PRegion=  $conn->sanitize($_POST['PRegion']);
+    if($PRegion!="") {
+        $sql = "$sql AND p.PRegion = $PRegion";
+    }
+}
 
 
 
@@ -74,19 +81,6 @@ if ($result->num_rows > 0) {
                 $row[$key] = "";
             }
         }
-
-        //find region based on county
-        $RegionID = 0;
-        $regionSQL = "SELECT c.RegionID FROM tlkpRecruitCounty c WHERE '$county' = c.CountyName";
-        $regionResult = $conn->runSelectQuery($regionSQL);
-
-        if(!empty($result) && $regionResult->num_rows>0) {
-            while($row2 = $regionResult->fetch_assoc()) {
-                $RegionID = $row2['RegionID'];
-            }
-        }
-
-        $row['PRegion'] = $RegionID;
 
         $data[] = $row;
     }

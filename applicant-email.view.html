@@ -178,7 +178,7 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="field in formFields track by field.FormFieldID">
-                        <td>{{field.MergeField}}</td>
+                        <td ng-click="appendMergeField(field.MergeField)">{{field.MergeField}}</td>
                     </tr>
                     </tbody>
                 </table>

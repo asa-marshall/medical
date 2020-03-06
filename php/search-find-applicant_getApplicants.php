@@ -60,14 +60,8 @@ if(isset($_POST['PRegion'])) {
     }
 }
 
-
-
-//SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName
-//Query for calculating regionID from county
-
 $data = array();
 
-//note using runSelectQueryArray - resulted in apostrophes not displaying correctly
 $result = $conn->runSelectQuery($sql);
 if ($result->num_rows > 0) {
 

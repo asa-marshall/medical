@@ -249,6 +249,10 @@ angular.module('myApplicant')
                 $scope.getAttach();
             };
 
+            $scope.appendMergeField = function appendMergeField(src) {
+                $scope.formpreview += src;
+            }
+
             //open the pop-up modal with the text
             $scope.getPreview = function getPreview(applicant) {
                 var index = 0;

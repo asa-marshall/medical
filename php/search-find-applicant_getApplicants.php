@@ -6,9 +6,9 @@ require_once './dbcontroller.php';
 $conn = new DBController();
 
 
-$sql = "SELECT a.ApplicantID, a.fkPersonID,a.ApplicantStatus,
-               p.PSalutation, p.PersonFN, p.PersonLN, p.PersonMN, p.PersonGenQual, p.PCity, p.PCounty, p.PDOB
-        FROM tblApplicants a, tblAppPeople p tlkp
+$sql = "SELECT a.ApplicantID, a.fkPersonID, a.ApplicantStatus, a.fkSiteID,
+               p.PSalutation, p.PersonFN, p.PersonLN, p.PersonMN, p.PersonGenQual, p.PCity, p.PCounty, p.PDOB, p.PRegion
+        FROM tblApplicants a, tblAppPeople p
         WHERE p.PersonID = a.fkPersonID";
 
 if(isset($_POST['ApplicantStatus'])) {
@@ -45,11 +45,25 @@ if(isset($_POST['PersonLN'])) {
     }
 }
 
+if(isset($_POST['PSite'])) {
+    $siteID=  $conn->sanitize($_POST['PSite']);
+
+    if($siteID!="") {
+        $sql = "$sql AND a.fkSiteID LIKE '%$siteID%'";
+    }
+}
+
+if(isset($_POST['PRegion'])) {
+    $PRegion=  $conn->sanitize($_POST['PRegion']);
+    if($PRegion!="") {
+        $sql = "$sql AND p.PRegion = $PRegion";
+    }
+}
+
 
 
 //SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName
 //Query for calculating regionID from county
-$regionSQL = "SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName";
 
 $data = array();
 
@@ -59,6 +73,9 @@ if ($result->num_rows > 0) {
 
     //Loop for each applicant -- remove null values
     while ($row = $result->fetch_assoc()) {
+        $ApplicantID = $row['ApplicantID'];
+        $fkPersonID = $row['fkPersonID'];
+        $county = $row['PCounty'];
         foreach ($row as $key=>$value) {
             if ($value == null) {
                 $row[$key] = "";

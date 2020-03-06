@@ -23,7 +23,7 @@ angular.module('myApplicant')
 
             var request = {
                 method: "get",
-                url: 'emailAng.php',
+                url: './php/search-committee_getApplicationFiles.php',
                 dataType: "json",
                 headers: {"Content-Type": "application/x-www-form-urlencoded"}
             };
@@ -32,7 +32,7 @@ angular.module('myApplicant')
 
             $http(request)
                 .then(function (result) {
-                    $scope.document = result.data;
+                    $scope.documents = result.data;
                 }, function () {
                     alert("Error deleting records");
                 });

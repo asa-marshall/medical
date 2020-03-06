@@ -57,7 +57,7 @@ angular.module('myApplicant')
                 angular.forEach($scope.completedDocuments, function (compdocument) {
                     if (applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {
                         document.getElementById(applicantID + " " + doc).innerHTML = "&#10003";
-                        document.getElementById(applicantID + " " + doc).parentElement.className = "color-green";
+                        document.getElementById(applicantID + " " + doc).parentElement.className = "green";
                     }
                 });
             }

@@ -7,6 +7,30 @@ angular.module('myApplicant')
             $scope.checkall_guard=true;
             $scope.formFields=[];
 
+
+            $scope.attach;
+            $scope.getAttach = function getAttach(){
+                var attach=[];
+                var post = [];
+                console.log($scope.FormID);
+                post.FormID = $scope.FormID;
+
+                $http({
+                    method: "POST",
+                    url: "./php/sendEmail.php",
+                    data: Object.toparams(post),
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                }).then(function (result) {
+                     $scope.attach = result.data;
+                    
+                   
+                    
+                },
+                    function () {
+                        alert("Error deleting records");
+                    });
+
+            }
             //read the localStorage an get the current applicant
             $scope.init = function init() {
                 $scope.ApplicantID = $window.localStorage.getItem("ApplicantID");
@@ -100,27 +124,29 @@ angular.module('myApplicant')
             $scope.sendIndivdualEmail = function sendIndivdualEmail(applicant) {
                 var mailObj = {};
                 mailObj.cc = $scope.getApplicantsEmails(applicant);
-
+           
                 mailObj.subject = $scope.emailSubject;
 
-                var body = $scope.formpreview;
+                var body = $scope.formpreview + "\r\n\r\n\r\n\r\n";
+
+                for(var i=0; i<$scope.attach.length; i++){
+                            
+                    body += "http://127.0.0.1/medical1/php" + $scope.attach[i].FilePath + "\r\n";
+                }
 
                 //merge letter
                 body = $scope.mailMerge(body, applicant);
 
-                console.log($scope.getGuardiansEmails(applicant));
-                console.log(Object.toparams(mailObj));
+
                 mailObj.body = body;
-                var str = "mailto:" + $scope.getGuardiansEmails(applicant) + "?" + Object.toparams(mailObj)
-         
-                
-                console.log(str);
+                var str = "mailto:" + $scope.getGuardiansEmails(applicant) + "?" + Object.toparams(mailObj);
+
                 $window.open(str);
             };
             $scope.sendBcc = function sendBcc() {
                 var index = 0;
                 var list = [];
-
+                
                 if ($scope.dataList.length === 0) {
                     alert("You must select a applicant to to email.");
                 }
@@ -140,8 +166,16 @@ angular.module('myApplicant')
 
                         var mailObj = {};
                         mailObj.bcc = bcc;
+                        
+                        
                         mailObj.subject = $scope.emailSubject;
-                        mailObj.body = $scope.formpreview;
+
+                        mailObj.body = $scope.formpreview + "\r\n\r\n\r\n\r\n";
+
+                        for(var i=0; i<$scope.attach.length; i++){
+                            
+                            mailObj.body += "http://127.0.0.1/medical1/php" + $scope.attach[i].FilePath + "\n\n";
+                        }
                         var str = "mailto:?" + Object.toparams(mailObj);
                         $window.open(str);
                     }
@@ -209,9 +243,10 @@ angular.module('myApplicant')
                 for (i = 0; i < $scope.forms.length; i++) {
                     if ($scope.forms[i].FormID === option) {
                         $scope.formpreview = $scope.forms[i].FormText;
+                        $scope.FormID = $scope.forms[i].FormID;
                     }
                 }
-
+                $scope.getAttach();
             };
 
             //open the pop-up modal with the text
@@ -272,7 +307,8 @@ angular.module('myApplicant')
                         })
                 ;
             };
-
+            
+            
             $scope.init();
 
         }

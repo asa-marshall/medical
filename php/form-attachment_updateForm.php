@@ -13,7 +13,7 @@ if(!empty($_FILES)){
     echo($FormAttachmentID);
     if(move_uploaded_file($_FILES['file']['tmp_name'], $path)){
         $sql="UPDATE tblFormAttachments
-        SET  SourceFileName='$SourceFileName', Note= '$Note', FilePath = './upload/$FilePath' 
+        SET  SourceFileName='$SourceFileName', Note= '$Note', FilePath = '/upload/$FilePath' 
         WHERE FormAttachmentID='$FormAttachmentID'";
         $result = $conn->runSelectQuery($sql);
         $data = array();

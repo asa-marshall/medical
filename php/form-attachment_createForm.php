@@ -30,7 +30,7 @@ if(!empty($_FILES)){
     $SourceFileName = $_POST['SourceFileName'];
     $Note = $_POST['Note'];
     if(move_uploaded_file($_FILES['file']['tmp_name'], $path)){
-        $sql="INSERT INTO tblFormAttachments(fkFormID, SourceFileName, Note, FilePath) VALUES ('$fkFormID' ,'$SourceFileName', '$Note', '$FilePath')";
+        $sql="INSERT INTO tblFormAttachments(fkFormID, SourceFileName, Note, FilePath) VALUES ('$fkFormID' ,'$SourceFileName', '$Note','/upload/$FilePath')";
         $result = $conn->runSelectQuery($sql);
         $data = array();
 

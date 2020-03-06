@@ -10,7 +10,7 @@ class DBController {
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-    private $database ="s94gccodec_liu_F2019";
+    private $database ="s94gccodec_master_SP2019_Feb19";
 
 
     /*

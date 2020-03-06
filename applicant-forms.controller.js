@@ -332,6 +332,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
         ).then(function(){
             alert("record updated");  
             $scope.loadForms1();
+            $scope.clearForms();
             },
             function(){
                 alert("Error inserting records");
@@ -386,14 +387,20 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             form_data.append("Note", Note);
             form_data.append("fkFormID", $scope.formPreview.FormID);
             // console.log(form)
-            $http.post('./php/update.php', form_data,
+            $http.post('./php/form-attachment_updateForm.php', form_data,
             {
                 transformRequest: angular.identity,
                 headers: {'Content-type': undefined, 'Process-Data': false}
             }
         ).success(function(result){
             alert(response);
+            // $scope.clearForms();
         });
+        }
+        $scope.clearForms = function(){
+            $scope.SourceFileName = "";
+            $scope.Note = "";
+            $scope.FilePath = "";
         }
 
 

@@ -71,14 +71,8 @@
             width: 100%;
             height: 100%;
         }
-
-        .color-green {
+        .green {
             background-color: green;
-            /*color: green;*/
-        }
-
-        .color-red {
-            background-color: red;
         }
     </style>
 </head>
@@ -134,7 +128,6 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--  TODO ng-repeat based on search applicant results -->
                             <tr ng-repeat="applicant in applicants">
                                 <td>
                                     {{applicant.PersonFN}} {{applicant.PersonLN}}
@@ -145,9 +138,7 @@
                                 <td>
                                     {{applicant.fkSiteID}}
                                 </td>
-                                <td ng-repeat="document in documents" class="color-red">
-                                    {{checkCompletedDocuments(applicant.ApplicantID, document.AutoID)}}
-                                    <p style="height: 100%; width: 100%"id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
+                                <td ng-repeat="document in documents">
                                 </td>
                             </tr>
                             </tbody>

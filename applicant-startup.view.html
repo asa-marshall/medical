@@ -121,58 +121,23 @@
                                 <th>Full Name</th>
                                 <th>Region</th>
                                 <th>Site</th>
-                                <th>Document 1</th>
-                                <th>Document 2</th>
-                                <th>Document 3</th>
-                                <th>Document 4</th>
-                                <th>Document 5</th>
-
+                                <th ng-repeat="document in documents">Document</th>
                             </tr>
                             </thead>
                             <tbody>
                             <!--  TODO ng-repeat based on search applicant results -->
-                            <tr>
-                                <td>John Smith</td>
-                                <td>3</td>
-                                <td>Milledgeville</td>
-                                <!-- TODO NG-Repeat Missing documents in td tag -->
-                                <td>Document 1 &#10003;</td>
-                                <td>Document 2 &#10005;</td>
-                                <td>Document 3</td>
-                                <td>Document 4</td>
-                                <td>Document 5</td>
-                            </tr>
-                            <tr>
-                                <td>George Washington</td>
-                                <td>2</td>
-                                <td>Milledgeville</td>
-                                <td>Document 1 &#10003;</td>
-                                <td>Document 2 &#10005;</td>
-                                <td>Document 3</td>
-                                <td>Document 4</td>
-                                <td>Document 5</td>
-                            </tr><tr>
-                                <td>Gita Phelps</td>
-                                <td>6</td>
-                                <td>Milledgeville</td>
-                                <td>Document 1 &#10003;</td>
-                                <td>Document 2 &#10005;</td>
-                                <td>Document 3</td>
-                                <td>Document 4</td>
-                                <td>Document 5</td>
-                            </tr>
                             <tr ng-repeat="applicant in applicants">
                                 <td>
                                     {{applicant.PersonFN}} {{applicant.PersonLN}}
                                 </td>
                                 <td>
-                                    {{applicant.PersonLN}}
+                                    {{applicant.PRegion}}
                                 </td>
                                 <td>
-                                    {{applicant.PCounty}}
+                                    {{applicant.PSite}}
                                 </td>
-                                <td>
-                                    {{applicant.PCity}}
+                                <td ng-repeat="document in documents">
+                                    &#10005;
                                 </td>
                             </tr>
                             </tbody>

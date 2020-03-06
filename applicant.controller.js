@@ -21,6 +21,7 @@ angular.module('myApplicant')
             $scope.applicants = [];
             $scope.applicants = JSON.parse($window.localStorage.getItem("temp_applicants"));
 
+            $scope.documents = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         }
 
     ]);

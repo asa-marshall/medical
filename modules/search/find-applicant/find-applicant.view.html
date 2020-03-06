@@ -53,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="applicant in $ctrl.filteredList | orderBy:'PersonLN'"
+                    <tr ng-repeat="applicant in $ctrl.filteredList | orderBy:'PersonLN' track by applicant.ApplicantID"
                         ng-class="$ctrl.getStyle(applicant)"
                         ng-click="$ctrl.toggleCheck(applicant)">
                         <td>

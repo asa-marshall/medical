@@ -52,7 +52,7 @@ angular.module('myApplicant')
                 }, function () {
                     alert("Error Finding App Docs");
                 });
-            // let content = "x";
+
             $scope.checkCompletedDocuments = function checkCompletedDocument(applicantID, doc) {
                 angular.forEach($scope.completedDocuments, function (compdocument) {
                     if (applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {

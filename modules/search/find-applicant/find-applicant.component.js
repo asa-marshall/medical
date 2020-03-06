@@ -21,7 +21,9 @@ angular.module("search.findApplicant")
                             PCity: "",
                             PCounty:"",
                             ApplicantStatus: "",
-                            ApplicantID:""
+                            ApplicantID:"",
+                            PSite: "",
+                            PRegion: "",
                         };
                         this.options_ApplicantStatus = [];
 

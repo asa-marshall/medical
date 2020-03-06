@@ -50,10 +50,25 @@
 
     <div class="container-fluid" style="margin-top:0">
         <div class="row alert-info">
-            <div class="col">
+            <div class="col-2">
                     <button data-toggle="collapse"
-                            class="btn-primary"
-                            data-target="#searchColumn" > Search Panel </button>
+                            class="myButton"
+                            data-target="#searchColumn" > Search </button>
+            </div>
+            <div class="col-10">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="myButton" onclick="window.location.href = './applicant-startup.view.html'">Summary Table</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="myButtonActive" onclick="window.location.href = './applicant-email.view.html'">Email Applicants</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="myButton" onclick="window.location.href = './applicant-forms.view.html'">Email Forms</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -172,7 +187,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <table class="table minerva-table bg-light">
+                <table class="table minerva-table bg-light table-hover">
                     <thead>
                     <tr><th>Merge Fields</th></tr>
                     </thead>

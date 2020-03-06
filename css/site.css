@@ -294,3 +294,39 @@
     height: auto;
     border: 2px solid rgba(63, 63, 63, 1);
 }
+
+/*TODO: sort classes better in this file*/
+.myButton {
+    background-color: darkblue;
+    color: white;
+    border: 2px solid darkblue;
+    width: 100%;
+}
+
+.myButton:hover {
+    background-color: white;
+    color: darkblue;
+}
+
+
+.myButtonActive {
+    background-color: white;
+    color: darkblue;
+    border: 2px solid darkblue;
+    width: 100%;
+}
+
+.myButton-Green {
+    background-color: darkseagreen;
+    color: white;
+    border: 2px solid darkseagreen;
+    width: 100%;
+    height: 100%;
+}
+.green {
+    background-color: palegreen;
+}
+
+.red {
+    background-color: #ffa8a8;
+}

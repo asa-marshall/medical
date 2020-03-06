@@ -8,7 +8,7 @@ if(!empty($_FILES)){
     $FilePath = $_FILES['file']['name'];
     $FormAttachmentID = $_POST['FormAttachmentID'];
     $fkFormID = $_POST['fkFormID'];
-    $SourceFileName = $_POST['SourceFileName'];
+    $SourceFileName = $_FILES['file']['name'];
     $Note = $_POST['Note'];
     echo($FormAttachmentID);
     if(move_uploaded_file($_FILES['file']['tmp_name'], $path)){

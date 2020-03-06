@@ -71,6 +71,15 @@
             width: 100%;
             height: 100%;
         }
+
+        .color-green {
+            background-color: green;
+            /*color: green;*/
+        }
+
+        .color-red {
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -136,8 +145,9 @@
                                 <td>
                                     {{applicant.fkSiteID}}
                                 </td>
-                                <td ng-repeat="document in documents">
-                                    &#10005;
+                                <td ng-repeat="document in documents" class="color-red">
+                                    {{checkCompletedDocuments(applicant.ApplicantID, document.AutoID)}}
+                                    <p style="height: 100%; width: 100%"id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
                                 </td>
                             </tr>
                             </tbody>

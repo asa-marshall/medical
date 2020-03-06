@@ -34,9 +34,33 @@ angular.module('myApplicant')
                 .then(function (result) {
                     $scope.documents = result.data;
                 }, function () {
-                    alert("Error deleting records");
+                    alert("Error Finding Application Files");
                 });
 
+            var request = {
+                method: "get",
+                url: './php/search-committee_getAppDocs.php',
+                dataType: "json",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"}
+            };
+
+            $scope.completedDocuments = [];
+
+            $http(request)
+                .then(function (result) {
+                    $scope.completedDocuments = result.data;
+                }, function () {
+                    alert("Error Finding App Docs");
+                });
+            // let content = "x";
+            $scope.checkCompletedDocuments = function checkCompletedDocument(applicantID, doc){
+                angular.forEach($scope.completedDocuments, function(compdocument) {
+                    if(applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {
+                        document.getElementById(applicantID + " " + doc).innerHTML="&#10003";
+                        document.getElementById(applicantID + " " + doc).parentElement.className="color-green";
+                    }
+                });
+            }
         }
 
     ]);

@@ -8,7 +8,7 @@ $conn = new DBController();
 
 $sql = "SELECT a.ApplicantID, a.fkPersonID,a.ApplicantStatus,
                p.PSalutation, p.PersonFN, p.PersonLN, p.PersonMN, p.PersonGenQual, p.PCity, p.PCounty, p.PDOB
-        FROM tblApplicants a, tblAppPeople p tlkp
+        FROM tblApplicants a, tblAppPeople p
         WHERE p.PersonID = a.fkPersonID";
 
 if(isset($_POST['ApplicantStatus'])) {
@@ -45,11 +45,18 @@ if(isset($_POST['PersonLN'])) {
     }
 }
 
+/*if(isset($_POST['PRegion'])) {
+    $PRegion=  $conn->sanitize($_POST['PersonLN']);
+
+    if($PersonLN!="") {
+        $sql = "$sql AND p.PCounty LIKE c.CountyName AND c.RegionID = r.AutoID";
+    }
+}*/
+
 
 
 //SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName
 //Query for calculating regionID from county
-$regionSQL = "SELECT RegionID FROM tblAppPeople, tlkpRecruitCounty WHERE tblAppPeople.PCounty = tlkpRecruitCounty.CountyName";
 
 $data = array();
 
@@ -59,11 +66,27 @@ if ($result->num_rows > 0) {
 
     //Loop for each applicant -- remove null values
     while ($row = $result->fetch_assoc()) {
+        $ApplicantID = $row['ApplicantID'];
+        $fkPersonID = $row['fkPersonID'];
+        $county = $row['PCounty'];
         foreach ($row as $key=>$value) {
             if ($value == null) {
                 $row[$key] = "";
             }
         }
+
+        //find region based on county
+        $RegionID = 0;
+        $regionSQL = "SELECT c.RegionID FROM tlkpRecruitCounty c WHERE '$county' = c.CountyName";
+        $regionResult = $conn->runSelectQuery($regionSQL);
+
+        if(!empty($result) && $regionResult->num_rows>0) {
+            while($row2 = $regionResult->fetch_assoc()) {
+                $RegionID = $row2['RegionID'];
+            }
+        }
+
+        $row['PRegion'] = $RegionID;
 
         $data[] = $row;
     }

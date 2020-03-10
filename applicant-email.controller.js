@@ -6,9 +6,11 @@ angular.module('myApplicant')
             $scope.checkall_email=true;
             $scope.checkall_guard=true;
             $scope.formFields=[];
-
+           
 
             $scope.attach;
+             $scope.missingDocuments;
+         
             $scope.getAttach = function getAttach(){
                 var attach=[];
                 var post = [];
@@ -108,21 +110,52 @@ angular.module('myApplicant')
                 $scope.init();
             });
 
-
+           
             $scope.mailMerge = function mailMerge(formletter, applicant){
                 var i;
                 var MergeField;
                 var ColumnName;
-                for(i=0; i< $scope.formFields.length; i++)
+                var mD;
+
+               
+                 
+                
+                 for(i=0; i< $scope.formFields.length; i++)
                 {
-                    MergeField = $scope.formFields[i].MergeField;
+                   if(i == $scope.formFields.length-1){
+                        MergeField = $scope.formFields[i].MergeField;
+                        ColumnName = $scope.formFields[i].ColumnName;
+                        
+                        var src ;
+                        for(i=0; i<$scope.missingDocuments.length; i++){
+                            src += $scope.missingDocuments[i].Description + "\n";
+                        }
+                        formletter = formletter.split(MergeField);
+                        formletter = formletter.join(src);
+                        
+
+
+                   }
+                   else{ MergeField = $scope.formFields[i].MergeField;
                     ColumnName = $scope.formFields[i].ColumnName;
                     formletter = formletter.split(MergeField).join(applicant[ColumnName]);
+                   }
+                
+                
                 }
+                     
+               
+               
+
+              
                 return formletter;
             };
+
+            
             $scope.sendIndivdualEmail = function sendIndivdualEmail(applicant) {
                 var mailObj = {};
+                
+                
                 mailObj.cc = $scope.getApplicantsEmails(applicant);
            
                 mailObj.subject = $scope.emailSubject;
@@ -135,8 +168,9 @@ angular.module('myApplicant')
                 }
 
                 //merge letter
+                console.log(applicant);
                 body = $scope.mailMerge(body, applicant);
-
+               
 
                 mailObj.body = body;
                 var str = "mailto:" + $scope.getGuardiansEmails(applicant) + "?" + Object.toparams(mailObj);
@@ -199,8 +233,10 @@ angular.module('myApplicant')
                             $scope.getGuardiansEmails(applicant);
                         if(emails.length >0) {
                             emailCount++;
-
+                            $scope.GetMissingDoc(applicant);
+                            
                             $scope.sendIndivdualEmail($scope.dataList[index]);
+                            
                         }
                     }
                 }
@@ -208,7 +244,30 @@ angular.module('myApplicant')
                     alert('No email addresses selected');
                 }
             };
+                        ///Get  MissingDocument List ////
+            $scope.GetMissingDoc = function GetMissingDoc(applicant){
+                 MergeField = $scope.formFields[$scope.formFields.length-1].MergeField;
+                 ColumnName = $scope.formFields[$scope.formFields.length - 1].ColumnName;
+                 var post = [];
+                 post.PersonID = applicant[ColumnName];
 
+
+                 $http({
+                    method: "POST",
+                    url: "./php/search-committee_getMissingDocuments.php",
+                    data: Object.toparams(post),
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+                }).then(function (result) {
+                    $scope.missingDocuments = result.data;
+                },
+                    function () {
+                        
+                        alert("Error deleting records");
+                });
+                
+            }
+
+          
             $scope.getApplicantsEmails = function getApplicantsEmails(row) {
 
                 var list = "";
@@ -250,13 +309,22 @@ angular.module('myApplicant')
             };
 
             $scope.appendMergeField = function appendMergeField(src) {
+                console.log(src);
+                if(src == "{{missingdocuments}}"){
+                   
+                }
                 $scope.formpreview += src;
+                
+                 
             }
+
+        
 
             //open the pop-up modal with the text
             $scope.getPreview = function getPreview(applicant) {
                 var index = 0;
                 $scope.formletter  = $scope.formpreview;
+                
                 $scope.formletter = $scope.mailMerge($scope.formletter, applicant);
                 document.querySelector('#previewButton').click();
 

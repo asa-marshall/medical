@@ -219,9 +219,10 @@ angular.module('myApplicant')
                 }
 
             };
-            $scope.sendTo = function sendTo() {
+            $scope.sendTo = async function sendTo() {
                 var index = 0;
                 var emailCount=0;
+                console.log("excute");
                 if ($scope.dataList.length === 0) {
                     alert("You must select a applicant to to email.");
                 }
@@ -233,7 +234,9 @@ angular.module('myApplicant')
                             $scope.getGuardiansEmails(applicant);
                         if(emails.length >0) {
                             emailCount++;
-                            $scope.GetMissingDoc(applicant);
+                           
+                            console.log($scope.missingDocuments);
+                            await $scope.GetMissingDoc(applicant);
                             
                             $scope.sendIndivdualEmail($scope.dataList[index]);
                             
@@ -244,15 +247,16 @@ angular.module('myApplicant')
                     alert('No email addresses selected');
                 }
             };
-                        ///Get  MissingDocument List ////
-            $scope.GetMissingDoc = function GetMissingDoc(applicant){
+        ///===============Get  MissingDocument List =====================////
+            $scope.GetMissingDoc = async function GetMissingDoc(applicant){
+                 $scope.missingDocuments = "";
                  MergeField = $scope.formFields[$scope.formFields.length-1].MergeField;
                  ColumnName = $scope.formFields[$scope.formFields.length - 1].ColumnName;
                  var post = [];
                  post.PersonID = applicant[ColumnName];
 
 
-                 $http({
+                 await $http({
                     method: "POST",
                     url: "./php/search-committee_getMissingDocuments.php",
                     data: Object.toparams(post),
@@ -264,6 +268,7 @@ angular.module('myApplicant')
                         
                         alert("Error deleting records");
                 });
+               
                 
             }
 

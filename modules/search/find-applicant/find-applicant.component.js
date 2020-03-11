@@ -21,11 +21,15 @@ angular.module("search.findApplicant")
                             PCity: "",
                             PCounty:"",
                             ApplicantStatus: "",
+                            ApplicantDocument: "",
                             ApplicantID:"",
                             PSite: "",
                             PRegion: "",
                         };
                         this.options_ApplicantStatus = [];
+                        this.options_ApplicantDocuments = [];
+                        this.options_Regions = [];
+                        this.options_Sites = [];
 
                         this.getApplicantStatusDescription = function getApplicantStatusDescription(id) {
                             var description = "";
@@ -80,6 +84,7 @@ angular.module("search.findApplicant")
                             ;
                         };
                         this.loadSearchLookups = function loadSearchLookups() {
+                            //Load Applicant Status
                             var request = {
                                 method: "POST",
                                 url: "./php/search-find-applicant_getApplicantStatusLkp.php",
@@ -95,6 +100,58 @@ angular.module("search.findApplicant")
                                         alert("Error Loading lookup Fields");
                                     })
                             ;
+
+                            //Load Applicant Documents
+                            var request = {
+                                method: "POST",
+                                url: "./php/search-committee_getApplicationFiles.php",
+                                headers: {"Content-Type": "application/x-www-form-urlencoded"}  //POST is urlencoded!
+                            };
+                            var self = this;
+                            $http(request)
+                                .then(function (result) {
+
+                                        self.options_ApplicantDocuments = result.data;
+                                    },
+                                    function () {
+                                        alert("Error Loading Document Fields");
+                                    })
+                            ;
+
+                            //Load Regions
+                            var request = {
+                                method: "POST",
+                                url: "./php/search-committee_getRegionsLkp.php",
+                                headers: {"Content-Type": "application/x-www-form-urlencoded"}  //POST is urlencoded!
+                            };
+                            var self = this;
+                            $http(request)
+                                .then(function (result) {
+
+                                        self.options_Regions = result.data;
+                                    },
+                                    function () {
+                                        alert("Error Loading Regions");
+                                    })
+                            ;
+
+                            //Load Sites
+                            var request = {
+                                method: "POST",
+                                url: "./php/search-committee_getSitesLkp.php",
+                                headers: {"Content-Type": "application/x-www-form-urlencoded"}  //POST is urlencoded!
+                            };
+                            var self = this;
+                            $http(request)
+                                .then(function (result) {
+
+                                        self.options_Sites = result.data;
+                                    },
+                                    function () {
+                                        alert("Error Loading Regions");
+                                    })
+                            ;
+
                         };
                         this.applySelectFilter = function applySelectFilter() {
                             this.selectedList = filterFilter(this.dataList, {"check": true});

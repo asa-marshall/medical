@@ -88,40 +88,35 @@ if ($result->num_rows > 0) {
             }
         }
 
-        //Get Applicant Documents that have been filled out
 
-//        $sql2 = "SELECT *
-//                FROM tblAppDocs
-//                WHERE fkPersonID = '$fkPersonID'";
-//
-//        $result2 = $conn->runSelectQuery($sql2);
-//        if($result2->num_rows > 0) {
-//            while($row2 = $result2->fetch_assoc()){
-//                $ContactInfo=$row2['ContactInfo'];
-//                if(strpos($ContactInfo, '@')==true){
-//                    $email[]=$row2;
-//                }
-//            }
-//        }
-//        $row['email']=$email;
 
         if(isset($_POST['DocDesc'])) {
             $DocDesc = $conn->sanitize($_POST['DocDesc']);
 
             $sql2 = "SELECT AppDocID
                 FROM tblAppDocs
-                WHERE fkApplicantID = '$ApplicantID' AND DocType LIKE '%$DocDesc%'";
+                WHERE fkApplicantID = '$ApplicantID'AND DocType LIKE '%$DocDesc%'";
 
+//            for ($i = 0; $i<$DocDesc.length; $i++) {
+//
+//                echo $DocDesc[i];
+//
+//                if ($i == 0)
+//                    $sql2 = "$sql2 ";
+//                else
+//                    $sql2 = "$sql2 OR DocType LIKE '%$DocDesc[i]%'";
+//
+//            }
+
+//            $sql2 = "$sql2 )";
             $result2 = $conn->runSelectQuery($sql2);
-            if($result2->num_rows == 0) {
+            if ($result2->num_rows == 0) {
                 $data[] = $row;
             }
-        }   else {
+
+        } else {
             $data[] = $row;
         }
-
-
-
     }
 }
 

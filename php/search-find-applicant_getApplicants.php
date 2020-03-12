@@ -16,6 +16,17 @@ if(isset($_POST['ApplicantStatus'])) {
 
     $sql = "$sql AND ApplicantStatus = '$ApplicantStatus'";
 }
+
+
+    if(isset($_POST['ApplicantDocuments'])){
+        $ApplicantDocuments= $conn->sanitize($_POST['ApplicantDocuments']);
+        
+        if($ApplicantDocuments!=""){
+            $sql = "$sql AND a.fkPersonID NOT IN (SELECT fkPersonID FROM tblApplicants WHERE ApplicantID IN (SELECT fkApplicantID FROM tblAppDocs WHERE fkApplicationFileID = $ApplicantDocuments))";
+
+        }
+    }
+
 if(isset($_POST['PCounty'])) {
     $PCounty=  $conn->sanitize($_POST['PCounty']);
 

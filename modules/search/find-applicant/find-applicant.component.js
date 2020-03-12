@@ -21,7 +21,7 @@ angular.module("search.findApplicant")
                             PCity: "",
                             PCounty:"",
                             ApplicantStatus: "",
-                            ApplicantDocument: "",
+                            ApplicantDocuments: "",
                             ApplicantID:"",
                             PSite: "",
                             PRegion: "",
@@ -54,6 +54,8 @@ angular.module("search.findApplicant")
                         };
 
                         this.loadData = function loadData() {
+
+                            console.log(this.search);
                             var sendData = this.search;
                             //remove each null property
                             for (property in sendData) {

@@ -15,7 +15,7 @@
                         <div class="form-group">
                             <label for="applicant_status">Applicant Documents</label>
                             <select ng-model="$ctrl.search.DocDesc" id="applicant_documents"
-                                    ng-options="option.Description as option.Description for option in $ctrl.options_ApplicantDocuments">
+                                    ng-options="option.Description as option.Description for option in $ctrl.options_ApplicantDocuments" multiple>
                                 <option value=""></option>
                             </select>
                         </div>

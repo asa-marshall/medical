@@ -119,16 +119,25 @@ angular.module('myApplicant')
 
                
                  
-                
+                console.log($scope.missingDocuments);
                  for(i=0; i< $scope.formFields.length; i++)
                 {
                    if(i == $scope.formFields.length-1){
                         MergeField = $scope.formFields[i].MergeField;
                         ColumnName = $scope.formFields[i].ColumnName;
                         
-                        var src ;
+                        var src= "";
                         for(i=0; i<$scope.missingDocuments.length; i++){
-                            src += $scope.missingDocuments[i].Description + "\n";
+                            
+                            src += "≫ "+$scope.missingDocuments[i].Description + "\n";
+
+                             if($scope.missingDocuments[i].AutoID == 2 || $scope.missingDocuments[i].AutoID == 3 || $scope.missingDocuments[i].AutoID == 6
+                            || $scope.missingDocuments[i].AutoID == 7 || $scope.missingDocuments[i].AutoID == 9 || $scope.missingDocuments[i].AutoID == 10
+                            || $scope.missingDocuments[i].AutoID == 13 ){
+                                 src += "<Get form>" + "\n" + "http://127.0.0.1/medical1/documents/" + $scope.missingDocuments[i].Description +".pdf" + "\n\n";
+                            }
+                            else{ src+= "\n";}
+                            
                         }
                         formletter = formletter.split(MergeField);
                         formletter = formletter.join(src);
@@ -235,7 +244,7 @@ angular.module('myApplicant')
                         if(emails.length >0) {
                             emailCount++;
                            
-                            console.log($scope.missingDocuments);
+  
                             await $scope.GetMissingDoc(applicant);
                             
                             $scope.sendIndivdualEmail($scope.dataList[index]);
@@ -314,13 +323,7 @@ angular.module('myApplicant')
             };
 
             $scope.appendMergeField = function appendMergeField(src) {
-                console.log(src);
-                if(src == "{{missingdocuments}}"){
-                   
-                }
-                $scope.formpreview += src;
-                
-                 
+                $scope.formpreview += src;               
             }
 
         

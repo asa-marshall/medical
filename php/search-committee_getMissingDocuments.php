@@ -1,10 +1,4 @@
-<!-- /*
- * Created by PhpStorm.
- * User: Minseung
- * Date: 3/8/2020
- * Time: 08:33 PM
- */ -->
-<?php
+    <?php
 require_once 'dbcontroller.php';
 
 session_start();

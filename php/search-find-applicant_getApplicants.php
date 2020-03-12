@@ -71,6 +71,7 @@ if(isset($_POST['PRegion'])) {
     }
 }
 
+
 $data = array();
 
 $result = $conn->runSelectQuery($sql);
@@ -87,7 +88,23 @@ if ($result->num_rows > 0) {
             }
         }
 
-        $data[] = $row;
+        if(isset($_POST['DocDesc'])) {
+            $DocDesc = $conn->sanitize($_POST['DocDesc']);
+
+            $sql2 = "SELECT AppDocID
+                FROM tblAppDocs
+                WHERE fkApplicantID = '$ApplicantID' AND DocType LIKE '%$DocDesc%'";
+
+            $result2 = $conn->runSelectQuery($sql2);
+            if($result2->num_rows > 0) {
+                $data[] = $row;
+            }
+        }   else {
+            $data[] = $row;
+        }
+
+
+
     }
 }
 

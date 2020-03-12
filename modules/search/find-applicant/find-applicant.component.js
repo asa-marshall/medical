@@ -25,6 +25,7 @@ angular.module("search.findApplicant")
                             ApplicantID:"",
                             PSite: "",
                             PRegion: "",
+                            DocDesc: "",
                         };
                         this.options_ApplicantStatus = [];
                         this.options_ApplicantDocuments = [];

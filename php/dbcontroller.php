@@ -1,7 +1,7 @@
 <?php
 // File: dbcontroller.php
-// Use by all php files to access database
-//
+// Use by all php files to access database f
+// test edit
 class DBController {
 
     private $conn;

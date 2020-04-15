@@ -13,7 +13,7 @@ $conn = new DBController();
 $data = array();
 
 //get description of each application file
-$sql = "SELECT SiteID FROM tlkpSite";
+$sql = "SELECT SiteID, SiteName FROM tlkpSite";
 
 $result = $conn->runSelectQuery($sql);
 if ($result->num_rows > 0) {

@@ -329,7 +329,8 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                 transformRequest: angular.identity,
                 headers: {'Content-type': undefined, 'Process-Data': false}
             }
-        ).then(function(){
+        ).then(function(result){
+           
             alert("record updated");  
             $scope.loadForms1();
             $scope.clearForms();
@@ -345,12 +346,14 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         //================Delete Form=================================
         $scope.deleteForms = function deleteForms(form) {
-
+            var result = confirm("Want to delete?");
+            if(result){
             var post = {};
 
             post.FormAttachmentID = form.FormAttachmentID;
-
-
+            post.SourceFileName = form.SourceFileName;
+            
+            console.log(form.SourceFileName);
             $http({
                 method: "POST",
                 url:"./php/form-attachment_deleteForm.php",
@@ -362,6 +365,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                 function(){
                     alert("Error deleting records");
                 });
+            }
         };
 
 //===============Update Form=================================

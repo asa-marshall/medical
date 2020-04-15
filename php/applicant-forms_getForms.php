@@ -1,15 +1,25 @@
 
 <?php
-session_start();
+
 require_once 'dbcontroller.php';
-$connection = new DBController();
+$conn = new DBController();
 
 
 $sql = "SELECT *
-        FROM   tblApplicantForms
+        FROM tblApplicantForms
         ";
 
-$data = $connection->runSelectQueryArrayNotEncoded($sql);
+$result = $conn->runSelectQuery($sql);
+$data = array();
+
+if ($result->num_rows > 0) {
+
+    while ($row = $result->fetch_assoc()) {
+
+        $data[] = $row;
+    }
+}
 
 echo json_encode($data);
 ?>
+

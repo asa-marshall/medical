@@ -1,9 +1,7 @@
     <?php
-require_once 'dbcontroller.php';
-
-session_start();
-
+require_once './dbcontroller.php';
 $conn = new DBController();
+
 
 $PersonID    = $_POST['PersonID'];
 

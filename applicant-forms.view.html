@@ -50,6 +50,21 @@
 <body>
 
 <h1>Forms</h1>
+
+<div class="row">
+    <div class="col-2">
+        <button class="myButton" onclick="window.location.href = './applicant-summary-table.view.html'">Summary Table</button>
+    </div>
+    <div class="col-2">
+        <button class="myButton" onclick="window.location.href = './applicant-email.view.html'">Email Applicants</button>
+    </div>
+    <div class="col-2">
+        <button class="myButtonActive" onclick="window.location.href = './applicant-forms.view.html'">Email Forms</button>
+    </div>
+</div>
+
+</br>
+
 <div ng-app="myApplicant" ng-controller="ApplicantFormController">
 
     <div class="container-fluid" style="margin-top:0">
@@ -155,8 +170,9 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div ng-hide ="editMode">
                      <button type="button"
-                             class="btn" ng-click="createAttach()">File Attach</button>
+                             class="btn" ng-click="createAttach()">File Attach Mode</button></div>
                     
                     </div>
                 <!-- Form for formAttachment -->
@@ -171,7 +187,7 @@
 
                 
 
-                 <div ng-hide="!attachMode" class="form-group">
+                <div ng-hide="!attachMode" class="form-group">
                     <!-- <button type="button" class="btn  btnCreate" ng-click="insertForms(SourceFileName, Note)">Upload</button>
                     <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentID, SourceFileName, Note, FilePath)">Edit</button></span> -->
                     

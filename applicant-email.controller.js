@@ -116,16 +116,27 @@ angular.module('myApplicant')
                 var MergeField;
                 var ColumnName;
                 var mD;
-
-               
                  
-                console.log($scope.missingDocuments);
+               ///==============Put Missing Document File=========================//
                  for(i=0; i< $scope.formFields.length; i++)
                 {
-                   if(i == $scope.formFields.length-1){
-                        MergeField = $scope.formFields[i].MergeField;
-                        ColumnName = $scope.formFields[i].ColumnName;
+                    
+                   if(i < $scope.formFields.length-1){
+                      MergeField = $scope.formFields[i].MergeField;
+                      ColumnName = $scope.formFields[i].ColumnName;
+                      formletter = formletter.split(MergeField).join(applicant[ColumnName]);
                         
+
+
+                   }
+                   else{   
+                       console.log( $scope.formFields[i]);
+                       if($scope.missingDocuments == undefined){
+                           continue;
+                       }
+                       MergeField = $scope.formFields[i].MergeField;
+                       ColumnName = $scope.formFields[i].ColumnName;
+                         
                         var src= "";
                         for(i=0; i<$scope.missingDocuments.length; i++){
                             
@@ -142,19 +153,10 @@ angular.module('myApplicant')
                         formletter = formletter.split(MergeField);
                         formletter = formletter.join(src);
                         
-
-
-                   }
-                   else{ MergeField = $scope.formFields[i].MergeField;
-                    ColumnName = $scope.formFields[i].ColumnName;
-                    formletter = formletter.split(MergeField).join(applicant[ColumnName]);
                    }
                 
                 
                 }
-                     
-               
-               
 
               
                 return formletter;
@@ -173,7 +175,7 @@ angular.module('myApplicant')
 
                 for(var i=0; i<$scope.attach.length; i++){
                             
-                    body += "http://127.0.0.1/medical1/php" + $scope.attach[i].FilePath + "\r\n";
+                    body += "http://s94.gc-codec.com/S2020/sprintDemo2/selection-committee/Demo/SearchCommittee/php" + $scope.attach[i].FilePath + "\r\n";
                 }
 
                 //merge letter

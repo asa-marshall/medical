@@ -94,6 +94,7 @@
                                 <th>Last Name</th>
                                 <th>Region</th>
                                 <th>Site</th>
+                                <th>Completed Requirements</th>
                                 <th ng-repeat="document in documents">{{document.Description}}</th>
                             </tr>
                             </thead>
@@ -114,9 +115,14 @@
                                 <td>
                                     {{applicant.fkSiteID}}
                                 </td>
+                                <td class="red">
+                                    <!--use applicant id to make an id for a <p>-->
+                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' isRequired'}}">&#10005;</p>
+
+                                </td>
                                 <td ng-repeat="document in documents" class="red">
                                     {{checkCompletedDocuments(applicant.ApplicantID, document.AutoID)}}
-                                    <p style="height: 100%; width: 100%"id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
+                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
                                 </td>
                             </tr>
                             </tbody>

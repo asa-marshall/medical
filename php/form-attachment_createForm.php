@@ -4,10 +4,11 @@ $conn = new DBController();
 
 
 if(!empty($_FILES)){
-    echo("gi");
+
     $path = './upload/' . $_FILES['file']['name'];
     $FilePath = $_FILES['file']['name'];
     $fkFormID = $_POST['fkFormID'];
+    echo($fkFormID);
     $SourceFileName =  $_FILES['file']['name'];
     $Note = $_POST['Note'];
     if(move_uploaded_file($_FILES['file']['tmp_name'], $path)){
@@ -19,11 +20,12 @@ if(!empty($_FILES)){
 
             while ($row = $result->fetch_assoc()) {
 
-            $data[] = $row;
+                $data[] = $row;
+
             }
         }
-        
-    }    
-}   
+
+    }
+}
 
 ?>

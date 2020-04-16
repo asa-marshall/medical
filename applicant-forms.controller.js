@@ -253,7 +253,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
 
         };
 
- 
+
 
         $scope.init = function init() {
             $scope.getData();
@@ -317,7 +317,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                 console.log("HI");
                 form_data.append("fkFormID", $scope.formPreview.FormID);
                 // post.fkFormID = $scope.formPreview.FormID;
-                }
+            }
 
             form_data.append("SourceFileName", SourceFileName);
             form_data.append("Note", Note);
@@ -325,43 +325,47 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             // post.FilePath = f;
 
             $http.post('./php/form-attachment_createForm.php', form_data,
-            {
-                transformRequest: angular.identity,
-                headers: {'Content-type': undefined, 'Process-Data': false}
-            }
-        ).then(function(){
-            alert("record updated");  
-            $scope.loadForms1();
-            $scope.clearForms();
-            },
-            function(){
-                alert("Error inserting records");
-            }, 1000);
-            
-            
-       
-     
+                {
+                    transformRequest: angular.identity,
+                    headers: {'Content-type': undefined, 'Process-Data': false}
+                }
+            ).then(function(result){
+
+                    alert("record updated");
+                    $scope.loadForms1();
+                    $scope.clearForms();
+                },
+                function(){
+                    alert("Error inserting records");
+                }, 1000);
+
+
+
+
         };
 
         //================Delete Form=================================
         $scope.deleteForms = function deleteForms(form) {
+            var result = confirm("Want to delete?");
+            if(result){
+                var post = {};
 
-            var post = {};
+                post.FormAttachmentID = form.FormAttachmentID;
+                post.SourceFileName = form.SourceFileName;
 
-            post.FormAttachmentID = form.FormAttachmentID;
-
-
-            $http({
-                method: "POST",
-                url:"./php/form-attachment_deleteForm.php",
-                data: Object.toparams(post),
-                headers:{"Content-Type":"application/x-www-form-urlencoded"}
-            }).then(function(result){
-                    $scope.loadForms1();
-                },
-                function(){
-                    alert("Error deleting records");
-                });
+                console.log(form.SourceFileName);
+                $http({
+                    method: "POST",
+                    url:"./php/form-attachment_deleteForm.php",
+                    data: Object.toparams(post),
+                    headers:{"Content-Type":"application/x-www-form-urlencoded"}
+                }).then(function(result){
+                        $scope.loadForms1();
+                    },
+                    function(){
+                        alert("Error deleting records");
+                    });
+            }
         };
 
 //===============Update Form=================================
@@ -376,7 +380,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             $scope.FilePath = form.FilePath;
             $scope.FormAttachmentID = form.FormAttachmentID;
         }
-        
+
         $scope.updateForms = function(FormAttachmentID, SourceFileName, Note){
             var form_data = new FormData();
             angular.forEach($scope.files, function(file){
@@ -388,14 +392,14 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             form_data.append("fkFormID", $scope.formPreview.FormID);
             // console.log(form)
             $http.post('./php/form-attachment_updateForm.php', form_data,
-            {
-                transformRequest: angular.identity,
-                headers: {'Content-type': undefined, 'Process-Data': false}
-            }
-        ).success(function(result){
-            alert(response);
-            // $scope.clearForms();
-        });
+                {
+                    transformRequest: angular.identity,
+                    headers: {'Content-type': undefined, 'Process-Data': false}
+                }
+            ).success(function(result){
+                alert(response);
+                // $scope.clearForms();
+            });
         }
         $scope.clearForms = function(){
             $scope.SourceFileName = "";

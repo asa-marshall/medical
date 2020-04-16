@@ -56,7 +56,8 @@ angular.module("search.findApplicant")
 
                         this.loadData = function loadData() {
 
-                            console.log(this.search);
+                            console.log(this.search.ApplicantDocuments);
+                            console.log('1212');
                             var sendData = this.search;
                             //remove each null property
                             for (property in sendData) {

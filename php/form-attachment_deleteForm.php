@@ -3,8 +3,15 @@ require_once './dbcontroller.php';
 $conn = new DBController();
 
 $FormAttachmentID= $_POST['FormAttachmentID'];
+$SourceFileName= $_POST['SourceFileName'];
+$a1 = 'upload/';
 
-
+if(unlink($a1.$SourceFileName)){
+    echo 'File Success fully removed';
+}else{
+    echo 'Something Wrong';
+}
+echo('fdd');
 echo($FormAttachmentID);
 $sql="DELETE FROM tblFormAttachments WHERE FormAttachmentID='$FormAttachmentID'";
 

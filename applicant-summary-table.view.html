@@ -64,7 +64,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-2">
-                            <button class="myButtonActive" onclick="window.location.href = './applicant-startup.view.html'">Summary Table</button>
+                            <button class="myButtonActive" onclick="window.location.href = './applicant-summary-table.view.html'">Summary Table</button>
                         </div>
                         <div class="col-2">
                             <button class="myButton" onclick="window.location.href = './applicant-email.view.html'">Email Applicants</button>
@@ -87,29 +87,48 @@
             <div class="col-10" ng-hide="applicantIDError">
                 <div class="container-fluid">
                     <div class="row">
-                        <table class="table minerva-table" style="margin-top: 10px">
+                        <table class="table minerva-table" style="margin-top: 10px;height: 50rem; width: 95rem; overflow: scroll; display: block">
                             <thead>
                             <tr>
-                                <th>Full Name</th>
+                                <!--<th>Full Name</th>-->
+                                <th>First Name</th>
+                                <th>GenQual</th>
+                                <th>Last Name</th>
                                 <th>Region</th>
                                 <th>Site</th>
+
+                                <th ng-repeat="rdocument in requiredDocuments">{{rdocument.Description}} (Required)</th>
+
                                 <th ng-repeat="document in documents">{{document.Description}}</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr ng-repeat="applicant in applicants">
                                 <td>
-                                    {{applicant.PersonFN}} {{applicant.PersonLN}}
+                                    {{applicant.PersonFN}}
+                                </td>
+                                <td>
+                                    {{applicant.PersonGenQual}}
+                                </td>
+                                <td>
+                                    {{applicant.PersonLN}}
                                 </td>
                                 <td>
                                     {{applicant.PRegion}}
                                 </td>
                                 <td>
-                                    {{applicant.fkSiteID}}
+                                    <!--{{applicant.fkSiteID}}-->
+                                    {{getSiteName(applicant.ApplicantID, applicant.fkSiteID)}}
+                                    <p id="{{applicant.ApplicantID}} site"></p>
+                                </td>
+
+                                <td ng-repeat="rdocument in requiredDocuments" class="red">
+                                    {{checkCompletedRequirements(applicant.ApplicantID, rdocument.AutoID)}}
+                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + rdocument.AutoID}}">&#10005;</p>
                                 </td>
                                 <td align=center ng-repeat="document in documents" class="red check">
                                     {{checkCompletedDocuments(applicant.ApplicantID, document.AutoID)}}
-                                    <p style="height: 100%; width: 100%"id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
+                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
                                 </td>
                             </tr>
                             </tbody>

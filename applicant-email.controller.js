@@ -117,6 +117,7 @@ angular.module('myApplicant')
                 var ColumnName;
                 var mD;
 
+
                 ///==============Put Missing Document File=========================//
                 for(i=0; i< $scope.formFields.length; i++)
                 {
@@ -153,7 +154,9 @@ angular.module('myApplicant')
                         formletter = formletter.split(MergeField);
                         formletter = formletter.join(src);
 
+
                     }
+
 
 
                 }
@@ -174,7 +177,6 @@ angular.module('myApplicant')
                 var body = $scope.formpreview + "\r\n\r\n\r\n\r\n";
 
                 for(var i=0; i<$scope.attach.length; i++){
-
                     body += "http://s94.gc-codec.com/S2020/sprintDemo2/selection-committee/Demo/SearchCommittee/php" + $scope.attach[i].FilePath + "\r\n";
                 }
 

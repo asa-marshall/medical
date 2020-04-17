@@ -13,7 +13,7 @@ $conn = new DBController();
 $data = array();
 
 //get description of each application file
-$sql = "SELECT SiteID, SiteName FROM tlkpSite";
+$sql = "SELECT AutoID, IsRequired, Description FROM tlkpApplicationFiles f WHERE f.IsRequired = 1";
 
 $result = $conn->runSelectQuery($sql);
 if ($result->num_rows > 0) {
@@ -21,4 +21,5 @@ if ($result->num_rows > 0) {
         $data[] = $row;
     }
 }
+
 echo json_encode($data);

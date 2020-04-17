@@ -325,6 +325,7 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
             // post.FilePath = f;
 
             $http.post('./php/form-attachment_createForm.php', form_data,
+
                 {
                     transformRequest: angular.identity,
                     headers: {'Content-type': undefined, 'Process-Data': false}
@@ -339,15 +340,13 @@ myApplicant.controller('ApplicantFormController', ['$scope', '$http', '$window',
                     alert("Error inserting records");
                 }, 1000);
 
-
-
-
         };
 
         //================Delete Form=================================
         $scope.deleteForms = function deleteForms(form) {
             var result = confirm("Want to delete?");
             if(result){
+
                 var post = {};
 
                 post.FormAttachmentID = form.FormAttachmentID;

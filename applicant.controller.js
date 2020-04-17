@@ -79,16 +79,6 @@ angular.module('myApplicant')
                     if (applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {
                         document.getElementById(applicantID + " " + doc).innerHTML = "&#10003";
                         document.getElementById(applicantID + " " + doc).parentElement.className = "green";
-                        angular.forEach($scope.documents, function (rdocument) {
-                            if(rdocument.IsRequired === "1" && compdocument.fkApplicationFileID === rdocument.AutoID){
-                                // total++;
-                                // alert(compdocument.fkApplicantID + " " + rdocument.Description + " with total " + total);
-                                // if (total > 1){
-                                    document.getElementById(applicantID + " isRequired").innerHTML = "&#10003";
-                                    document.getElementById(applicantID + " isRequired").parentElement.className = "green";
-                                // }
-                            }
-                        })
                     }
                 });
                 // total = 0;

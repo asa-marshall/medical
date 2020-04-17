@@ -10,7 +10,8 @@ class DBController {
 	private $host = "localhost";
 	private $user = "root";
 	private $password = "";
-	private $database = "s94gccodec_master_SP2020";
+  private $database ="s94gccodec_master_SP2020";
+
 
 	function __construct() {
 		$this->conn = $this->connectDB();

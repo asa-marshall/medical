@@ -4,7 +4,6 @@ $conn = new DBController();
 
 
 if(!empty($_FILES)){
-   
     $path = './upload/' . $_FILES['file']['name'];
     $FilePath = $_FILES['file']['name'];
     $fkFormID = $_POST['fkFormID'];
@@ -20,12 +19,12 @@ if(!empty($_FILES)){
 
             while ($row = $result->fetch_assoc()) {
 
-            $data[] = $row;
+                $data[] = $row;
 
             }
         }
-      
-    }    
-}   
+
+    }
+}
 
 ?>

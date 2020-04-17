@@ -116,7 +116,7 @@
                                         ng-show="editMode" class="btn btnDelete" ng-click="deleteRecord()">Delete</button>
                                 <button type="button"
                                         ng-show="editMode" class="btn btnCancel" ng-click="cancelEdits()">Cancel</button>
-                               
+
 
 
                             </th>
@@ -154,7 +154,7 @@
                         <tr class="tr1">
                             <th>SourceFileName</th>
                             <th>Note</th>
-                           
+
                             <th ng-hide="!attachMode">function</th>
                         </tr>
                         </thead>
@@ -162,7 +162,7 @@
                         <tr ng-repeat="form in list">
                             <td >{{form.SourceFileName}}</td>
                             <td>{{form.Note}}</td>
-                   
+
                             <td ng-hide="!attachMode">
                                 <button type="button" class="btn btnDelete" ng-click="deleteForms(form)"></button>
                                 <button type="button" class="btn btnEdit" ng-click="disPlay(form)">
@@ -171,10 +171,11 @@
                         </tbody>
                     </table>
                     <div ng-hide ="editMode">
-                     <button type="button"
-                             class="btn" ng-click="createAttach()">File Attach Mode</button></div>
-                    
-                    </div>
+
+                        <button type="button"
+                                class="btn" ng-click="createAttach()">File Attach Mode</button></div>
+
+                </div>
                 <!-- Form for formAttachment -->
                 <div class="form-group" ng-hide="!forID" ng-class="getCardStyle()">
 
@@ -185,12 +186,12 @@
                            id="Note"/>
                 </div>
 
-                
+
 
                 <div ng-hide="!attachMode" class="form-group">
                     <!-- <button type="button" class="btn  btnCreate" ng-click="insertForms(SourceFileName, Note)">Upload</button>
                     <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentID, SourceFileName, Note, FilePath)">Edit</button></span> -->
-                    
+
                     <input type="file" file-input="files"  />
                     <button class="btn btnCreat" ng-click="insertForms(SourceFileName, Note)">Upload</button>
                     <span ng-hide = "!updateMode" ><button type="button" class="btn  btnCreate" ng-click="updateForms(FormAttachmentID, SourceFileName, Note, FilePath)">Edit</button></span>
@@ -199,7 +200,7 @@
                 <div class="form-group" ng-hide="!attachMode" ng-class="getCardStyle()">
                     <label for="Note">Note</label>
                     <input type="text"
-                           ng-model="Note"                   
+                           ng-model="Note"
                            class="form-control"
                            id="Note"/>
                 </div>
@@ -207,7 +208,7 @@
                 <div class="form-group" ng-hide="!updateMode" ng-class="getCardStyle()">
                     <label for="SourceFileName">SourceFileName</label>
                     <input type="text"
-                           ng-model="SourceFileName"                           
+                           ng-model="SourceFileName"
                            class="form-control"
                            id="SourceFileName"/>
                 </div>
@@ -229,12 +230,12 @@
                 <input class="file-path validate" type="file" id="file" name="file" file-input="files" />
                 </div> -->
 
-               
+
                 <div ng-hide = "!updateMode">
                     <div ng-hide="!attachMode " class="form-group">
 
                     </div></div>
-              
+
 
 
             </div>

@@ -6,11 +6,11 @@ angular.module('myApplicant')
             $scope.checkall_email=true;
             $scope.checkall_guard=true;
             $scope.formFields=[];
-           
+
 
             $scope.attach;
-             $scope.missingDocuments;
-         
+            $scope.missingDocuments;
+
             $scope.getAttach = function getAttach(){
                 var attach=[];
                 var post = [];
@@ -23,11 +23,11 @@ angular.module('myApplicant')
                     data: Object.toparams(post),
                     headers: { "Content-Type": "application/x-www-form-urlencoded" }
                 }).then(function (result) {
-                     $scope.attach = result.data;
-                    
-                   
-                    
-                },
+                        $scope.attach = result.data;
+
+
+
+                    },
                     function () {
                         alert("Error deleting records");
                     });
@@ -86,14 +86,14 @@ angular.module('myApplicant')
                 $http(request)
                     .then(function (result){
                             $scope.dataList= result.data;
-                        for( var i=0; i< $scope.dataList.length; i++){
-                            $scope.dataList[i].check=true;
+                            for( var i=0; i< $scope.dataList.length; i++){
+                                $scope.dataList[i].check=true;
 
-                            for(e=0;e<$scope.dataList[i].email.length; e++)
-                                $scope.dataList[i].email[e].emailCheck=true;
-                            for(g=0;g<$scope.dataList[i].guardians.length; g++)
-                                $scope.dataList[i].guardians[g].guardCheck=true;
-                        }
+                                for(e=0;e<$scope.dataList[i].email.length; e++)
+                                    $scope.dataList[i].email[e].emailCheck=true;
+                                for(g=0;g<$scope.dataList[i].guardians.length; g++)
+                                    $scope.dataList[i].guardians[g].guardCheck=true;
+                            }
                         },
                         function () {
                             alert("Error Loading  emails");
@@ -110,78 +110,80 @@ angular.module('myApplicant')
                 $scope.init();
             });
 
-           
+
             $scope.mailMerge = function mailMerge(formletter, applicant){
                 var i;
                 var MergeField;
                 var ColumnName;
                 var mD;
-                 
-               ///==============Put Missing Document File=========================//
-                 for(i=0; i< $scope.formFields.length; i++)
+
+
+                ///==============Put Missing Document File=========================//
+                for(i=0; i< $scope.formFields.length; i++)
                 {
-                    
-                   if(i < $scope.formFields.length-1){
-                      MergeField = $scope.formFields[i].MergeField;
-                      ColumnName = $scope.formFields[i].ColumnName;
-                      formletter = formletter.split(MergeField).join(applicant[ColumnName]);
-                        
+
+                    if(i < $scope.formFields.length-1){
+                        MergeField = $scope.formFields[i].MergeField;
+                        ColumnName = $scope.formFields[i].ColumnName;
+                        formletter = formletter.split(MergeField).join(applicant[ColumnName]);
 
 
-                   }
-                   else{   
-                       console.log( $scope.formFields[i]);
-                       if($scope.missingDocuments == undefined){
-                           continue;
-                       }
-                       MergeField = $scope.formFields[i].MergeField;
-                       ColumnName = $scope.formFields[i].ColumnName;
-                         
+
+                    }
+                    else{
+                        console.log( $scope.formFields[i]);
+                        if($scope.missingDocuments == undefined){
+                            continue;
+                        }
+                        MergeField = $scope.formFields[i].MergeField;
+                        ColumnName = $scope.formFields[i].ColumnName;
+
                         var src= "";
                         for(i=0; i<$scope.missingDocuments.length; i++){
-                            
+
                             src += "≫ "+$scope.missingDocuments[i].Description + "\n";
 
-                             if($scope.missingDocuments[i].AutoID == 2 || $scope.missingDocuments[i].AutoID == 3 || $scope.missingDocuments[i].AutoID == 6
-                            || $scope.missingDocuments[i].AutoID == 7 || $scope.missingDocuments[i].AutoID == 9 || $scope.missingDocuments[i].AutoID == 10
-                            || $scope.missingDocuments[i].AutoID == 13 ){
-                                 src += "<Get form>" + "\n" + "http://127.0.0.1/medical1/documents/" + $scope.missingDocuments[i].Description +".pdf" + "\n\n";
+                            if($scope.missingDocuments[i].AutoID == 2 || $scope.missingDocuments[i].AutoID == 3 || $scope.missingDocuments[i].AutoID == 6
+                                || $scope.missingDocuments[i].AutoID == 7 || $scope.missingDocuments[i].AutoID == 9 || $scope.missingDocuments[i].AutoID == 10
+                                || $scope.missingDocuments[i].AutoID == 13 ){
+                                src += "<Get form>" + "\n" + "http://127.0.0.1/medical1/documents/" + $scope.missingDocuments[i].Description +".pdf" + "\n\n";
                             }
                             else{ src+= "\n";}
-                            
+
                         }
                         formletter = formletter.split(MergeField);
                         formletter = formletter.join(src);
-                        
-                   }
-                
-                
+
+
+                    }
+
+
+
                 }
 
-              
+
                 return formletter;
             };
 
-            
+
             $scope.sendIndivdualEmail = function sendIndivdualEmail(applicant) {
                 var mailObj = {};
-                
-                
+
+
                 mailObj.cc = $scope.getApplicantsEmails(applicant);
-           
+
                 mailObj.subject = $scope.emailSubject;
 
                 var body = $scope.formpreview + "\r\n\r\n\r\n\r\n";
 
                 for(var i=0; i<$scope.attach.length; i++){
-                            
                     body += "http://s94.gc-codec.com/S2020/sprintDemo2/selection-committee/Demo/SearchCommittee/php" + $scope.attach[i].FilePath + "\r\n";
                 }
 
                 //merge letter
                 console.log(applicant);
                 body = $scope.mailMerge(body, applicant);
-               
+
 
                 mailObj.body = body;
                 var str = "mailto:" + $scope.getGuardiansEmails(applicant) + "?" + Object.toparams(mailObj);
@@ -191,7 +193,7 @@ angular.module('myApplicant')
             $scope.sendBcc = function sendBcc() {
                 var index = 0;
                 var list = [];
-                
+
                 if ($scope.dataList.length === 0) {
                     alert("You must select a applicant to to email.");
                 }
@@ -211,14 +213,14 @@ angular.module('myApplicant')
 
                         var mailObj = {};
                         mailObj.bcc = bcc;
-                        
-                        
+
+
                         mailObj.subject = $scope.emailSubject;
 
                         mailObj.body = $scope.formpreview + "\r\n\r\n\r\n\r\n";
 
                         for(var i=0; i<$scope.attach.length; i++){
-                            
+
                             mailObj.body += "http://127.0.0.1/medical1/php" + $scope.attach[i].FilePath + "\n\n";
                         }
                         var str = "mailto:?" + Object.toparams(mailObj);
@@ -245,12 +247,12 @@ angular.module('myApplicant')
                             $scope.getGuardiansEmails(applicant);
                         if(emails.length >0) {
                             emailCount++;
-                           
-  
+
+
                             await $scope.GetMissingDoc(applicant);
-                            
+
                             $scope.sendIndivdualEmail($scope.dataList[index]);
-                            
+
                         }
                     }
                 }
@@ -258,32 +260,32 @@ angular.module('myApplicant')
                     alert('No email addresses selected');
                 }
             };
-        ///===============Get  MissingDocument List =====================////
+            ///===============Get  MissingDocument List =====================////
             $scope.GetMissingDoc = async function GetMissingDoc(applicant){
-                 $scope.missingDocuments = "";
-                 MergeField = $scope.formFields[$scope.formFields.length-1].MergeField;
-                 ColumnName = $scope.formFields[$scope.formFields.length - 1].ColumnName;
-                 var post = [];
-                 post.PersonID = applicant[ColumnName];
+                $scope.missingDocuments = "";
+                MergeField = $scope.formFields[$scope.formFields.length-1].MergeField;
+                ColumnName = $scope.formFields[$scope.formFields.length - 1].ColumnName;
+                var post = [];
+                post.PersonID = applicant[ColumnName];
 
 
-                 await $http({
+                await $http({
                     method: "POST",
                     url: "./php/search-committee_getMissingDocuments.php",
                     data: Object.toparams(post),
                     headers: { "Content-Type": "application/x-www-form-urlencoded" }
                 }).then(function (result) {
-                    $scope.missingDocuments = result.data;
-                },
+                        $scope.missingDocuments = result.data;
+                    },
                     function () {
-                        
+
                         alert("Error deleting records");
-                });
-               
-                
+                    });
+
+
             }
 
-          
+
             $scope.getApplicantsEmails = function getApplicantsEmails(row) {
 
                 var list = "";
@@ -302,13 +304,13 @@ angular.module('myApplicant')
                 var i;
                 var list = "";
                 for (i = 0; i < row.guardians.length; i++) {
-                        if (row.guardians[i].guardCheck) {
-                            if (list !== "") {
-                                list += ",";
-                            }
-
-                            list += row.guardians[i].ContactInfo;
+                    if (row.guardians[i].guardCheck) {
+                        if (list !== "") {
+                            list += ",";
                         }
+
+                        list += row.guardians[i].ContactInfo;
+                    }
                 }
                 return list;
             };
@@ -325,16 +327,16 @@ angular.module('myApplicant')
             };
 
             $scope.appendMergeField = function appendMergeField(src) {
-                $scope.formpreview += src;               
+                $scope.formpreview += src;
             }
 
-        
+
 
             //open the pop-up modal with the text
             $scope.getPreview = function getPreview(applicant) {
                 var index = 0;
                 $scope.formletter  = $scope.formpreview;
-                
+
                 $scope.formletter = $scope.mailMerge($scope.formletter, applicant);
                 document.querySelector('#previewButton').click();
 
@@ -353,7 +355,7 @@ angular.module('myApplicant')
                 {statusID: "3", description: "Deadpool"}
             ];
 
-                       //default for mail
+            //default for mail
             $scope.emailSubject = "";
 
             $scope.loadFormFields = function loadFormFields() {
@@ -389,8 +391,8 @@ angular.module('myApplicant')
                         })
                 ;
             };
-            
-            
+
+
             $scope.init();
 
         }

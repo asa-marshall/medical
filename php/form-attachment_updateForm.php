@@ -22,12 +22,12 @@ if(!empty($_FILES)){
 
             while ($row = $result->fetch_assoc()) {
 
-            $data[] = $row;
+                $data[] = $row;
             }
         }
         echo json_encode($data);
-    }    }   
+    }    }
 
 
-    
+
 ?>

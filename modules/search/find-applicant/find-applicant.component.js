@@ -107,7 +107,7 @@ angular.module("search.findApplicant")
                             //Load Applicant Documents
                             var request = {
                                 method: "POST",
-                                url: "./php/search-committee_getApplicationFiles.php",
+                                url: "./php/search-committee_getAllApplicationFiles.php",
                                 headers: {"Content-Type": "application/x-www-form-urlencoded"}  //POST is urlencoded!
                             };
                             var self = this;

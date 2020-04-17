@@ -39,6 +39,22 @@ angular.module('myApplicant')
 
             var request = {
                 method: "get",
+                url: './php/search-committee_getRequiredApplicationFiles.php',
+                dataType: "json",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"}
+            };
+
+            $scope.requiredDocuments = [];
+
+            $http(request)
+                .then(function (result) {
+                    $scope.requiredDocuments = result.data;
+                }, function () {
+                    alert("Error deleting records");
+                });
+
+            var request = {
+                method: "get",
                 url: './php/search-committee_getAppDocs.php',
                 dataType: "json",
                 headers: {"Content-Type": "application/x-www-form-urlencoded"}
@@ -53,6 +69,8 @@ angular.module('myApplicant')
                     alert("Error Finding App Docs");
                 });
             // let total = 0;
+
+
             $scope.checkCompletedDocuments = function checkCompletedDocument(applicantID, doc) {
                 // let total = 0;
 
@@ -76,8 +94,19 @@ angular.module('myApplicant')
                 // total = 0;
             };
 
-            $scope.checkCompletedRequirements = function checkCompletedRequirements(applicantID, isRequired) {
-
+            $scope.checkCompletedRequirements = function checkCompletedRequirements(applicantID, doc) {
+                angular.forEach($scope.completedDocuments, function (compdocument) {
+                    if (applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {
+                        document.getElementById(applicantID + " " + doc).innerHTML = "&#10003";
+                        document.getElementById(applicantID + " " + doc).parentElement.className = "green";
+                        angular.forEach($scope.documents, function (rdocument) {
+                            if(rdocument.IsRequired === "1" && compdocument.fkApplicationFileID === rdocument.AutoID){
+                                document.getElementById(applicantID + " isRequired").innerHTML = "&#10003";
+                                document.getElementById(applicantID + " isRequired").parentElement.className = "green";
+                            }
+                        })
+                    }
+                });
             };
 
             var request = {

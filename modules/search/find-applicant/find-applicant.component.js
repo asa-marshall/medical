@@ -27,6 +27,7 @@ angular.module("search.findApplicant")
                             PRegion: "",
                             DocDesc: "",
                         };
+
                         this.options_ApplicantStatus = [];
                         this.options_ApplicantDocuments = [];
                         this.options_Regions = [];

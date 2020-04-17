@@ -9,21 +9,18 @@
                             <label for="applicant_status">Applicant Status</label>
                             <select style="float: right;" ng-model="$ctrl.search.ApplicantStatus" id="applicant_status"
                                     ng-options="option.AutoID as option.ApplicantStatus for option in $ctrl.options_ApplicantStatus">
-                                <option value=""></option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="applicant_status">Applicant Documents</label>
                             <select style="float: right;" ng-model="$ctrl.search.DocDesc" id="applicant_documents"
                                     ng-options="option.Description as option.Description for option in $ctrl.options_ApplicantDocuments">
-                                <option value=""></option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="applicant_region">Region</label>
                             <select style="float: right;" ng-model="$ctrl.search.PRegion" id="applicant_region"
                                     ng-options="option.RegionID as option.RegionID for option in $ctrl.options_Regions">
-                                <option value=""></option>
                             </select>
                         </div>
                         
@@ -31,7 +28,6 @@
                             <label for="applicant_site">Site</label>
                             <select style="float: right;" ng-model="$ctrl.search.PSite" id="applicant_site"
                                     ng-options="option.SiteID as option.SiteName for option in $ctrl.options_Sites">
-                                <option value=""></option>
                             </select>
                         </div>
 
@@ -51,10 +47,7 @@
                             <label for="search_PCity">City</label>
                             <input style="float: right;" ng-model="$ctrl.search.PCity" id="search_PCity"/>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="search_PSite">Site</label>
-                            <input ng-model="$ctrl.search.PSite" id="search_PSite"/>
-                        </div>-->
+
                         <button type="button" class="btn" ng-click="$ctrl.loadData()">Search Applicants</button>
                     </form>
                 </div>

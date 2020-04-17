@@ -43,7 +43,6 @@
 
     <script src="applicant.controller.js"></script>
     
-    </style>
 </head>
 <body>
 
@@ -122,7 +121,7 @@
                                     <p id="{{applicant.ApplicantID}} site"></p>
                                 </td>
 
-                                <td ng-repeat="rdocument in requiredDocuments" class="red">
+                                <td ng-repeat="rdocument in requiredDocuments" class="red" style="text-align: center">
                                     {{checkCompletedRequirements(applicant.ApplicantID, rdocument.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + rdocument.AutoID}}">&#10005;</p>
                                 </td>

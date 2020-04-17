@@ -113,7 +113,8 @@
                                     {{applicant.PersonLN}}
                                 </td>
                                 <td>
-                                    {{applicant.PRegion}}
+                                    {{getRegion(applicant.ApplicantID, applicant.PRegion)}}
+                                  <p id="{{applicant.ApplicantID}}"></p>
                                 </td>
                                 <td>
                                     <!--{{applicant.fkSiteID}}-->

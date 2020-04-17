@@ -78,7 +78,32 @@ angular.module('myApplicant')
 
             $scope.checkCompletedRequirements = function checkCompletedRequirements(applicantID, isRequired) {
 
-            }
+            };
+
+            var request = {
+                method: "get",
+                url: './php/search-committee_getSitesLkp.php',
+                datatype: "json",
+                headers: {"Content-Type": "application/x-www-form-urlencoded"}
+            };
+
+            $scope.sites = [];
+
+            $http(request)
+                .then(function (result) {
+                    $scope.sites = result.data;
+                }, function () {
+                    alert("Error Finding Sites");
+                });
+
+            $scope.getSiteName = function getSiteName(ApplicantID, fkSiteId){
+                angular.forEach($scope.sites, function(site) {
+                    if(fkSiteId === site.SiteID){
+                        document.getElementById(ApplicantID + " site").innerHTML = site.SiteName;
+                    }
+
+                });
+            };
         }
 
     ]);

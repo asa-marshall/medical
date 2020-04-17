@@ -113,7 +113,9 @@
                                     {{applicant.PRegion}}
                                 </td>
                                 <td>
-                                    {{applicant.fkSiteID}}
+                                    <!--{{applicant.fkSiteID}}-->
+                                    {{getSiteName(applicant.ApplicantID, applicant.fkSiteID)}}
+                                    <p id="{{applicant.ApplicantID}} site"></p>
                                 </td>
                                 <td class="red">
                                     <!--use applicant id to make an id for a <p>-->

@@ -94,7 +94,7 @@
                                 <th>Last Name</th>
                                 <th>Region</th>
                                 <th>Site</th>
-                                <th>Completed Requirements</th>
+
                                 <th ng-repeat="rdocument in requiredDocuments">{{rdocument.Description}} (Required)</th>
 
                                 <th ng-repeat="document in documents">{{document.Description}}</th>
@@ -119,11 +119,7 @@
                                     {{getSiteName(applicant.ApplicantID, applicant.fkSiteID)}}
                                     <p id="{{applicant.ApplicantID}} site"></p>
                                 </td>
-                                <td class="red">
-                                    <!--use applicant id to make an id for a <p>-->
-                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' isRequired'}}">&#10005;</p>
 
-                                </td>
                                 <td ng-repeat="rdocument in requiredDocuments" class="red">
                                     {{checkCompletedRequirements(applicant.ApplicantID, rdocument.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + rdocument.AutoID}}">&#10005;</p>

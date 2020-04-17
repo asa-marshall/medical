@@ -114,7 +114,22 @@ angular.module('myApplicant')
                 }, function () {
                     alert("Error Finding Sites");
                 });
-
+            $scope.getRegion = function(ApplicantID, pr){
+             
+              
+           
+                if(pr==1){
+                    document.getElementById(ApplicantID).innerHTML= 'Coastal Plain';
+                }else if(pr==2){
+                    document.getElementById(ApplicantID).innerHTML= 'Pledmont';
+                }else if(pr==3){
+                    document.getElementById(ApplicantID).innerHTML= 'Blue Ridge';
+                }else if(pr==4){
+                    document.getElementById(ApplicantID).innerHTML= 'Ridge and Valley';
+                }else if(pr==5){
+                    document.getElementById(ApplicantID).innerHTML= 'Plateau';
+                }
+            }
             $scope.getSiteName = function getSiteName(ApplicantID, fkSiteId){
                 angular.forEach($scope.sites, function(site) {
                     if(fkSiteId === site.SiteID){

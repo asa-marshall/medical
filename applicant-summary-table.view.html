@@ -96,13 +96,13 @@
                                 <th>Last Name</th>
                                 <th>Region</th>
                                 <th>Site</th>
-
+                                <th>Completed Requiements</th>
                                 <th ng-repeat="rdocument in requiredDocuments">{{rdocument.Description}} (Required)</th>
 
                                 <th ng-repeat="document in documents">{{document.Description}}</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody align=center>
                             <tr ng-repeat="applicant in applicants">
                                 <td>
                                     {{applicant.PersonFN}}
@@ -121,12 +121,15 @@
                                     {{getSiteName(applicant.ApplicantID, applicant.fkSiteID)}}
                                     <p id="{{applicant.ApplicantID}} site"></p>
                                 </td>
-
+                                <td class="red">
+                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' reqs'}}">&#10005;</p>
+                                </td>
                                 <td ng-repeat="rdocument in requiredDocuments" class="red">
-                                    {{checkCompletedRequirements(applicant.ApplicantID, rdocument.AutoID)}}
+                                                                         {{checkRequirements(applicant.ApplicantID)}}
+                                    {{checkCompletedDocuments(applicant.ApplicantID, rdocument.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + rdocument.AutoID}}">&#10005;</p>
                                 </td>
-                                <td align=center ng-repeat="document in documents" class="red check">
+                                <td ng-repeat="document in documents" class="red check">
                                     {{checkCompletedDocuments(applicant.ApplicantID, document.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
                                 </td>

@@ -94,13 +94,14 @@
                                 <th>First Name</th>
                                 <th>GenQual</th>
                                 <th>Last Name</th>
+                                <th>Required</th>
                                 <th>Region</th>
                                 <th>Site</th>
                                 <th>Completed Requirements</th>
 
-                                <th ng-repeat="rdocument in requiredDocuments">{{rdocument.Description}} (Required)</th>
+                                <th ng-repeat="rdocument in requiredDocuments">{{rdocument.ShortDescription}} (Required)</th>
 
-                                <th ng-repeat="document in documents">{{document.Description}}</th>
+                                <th ng-repeat="document in documents">{{document.ShortDescription}}</th>
                             </tr>
                             </thead>
                             <tbody  align=center>
@@ -117,9 +118,15 @@
                                 <td>
                                     {{applicant.PersonLN}}
                                 </td>
+                                <td align=center class="red">
+                                    {{checkRequired(applicant.ApplicantID)}}
+                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID}}">&#10005;</p>
+                                </td>
                                 <td>
-                                    {{getRegion(applicant.ApplicantID, applicant.PRegion)}}
-                                  <p id="{{applicant.ApplicantID}}"></p>
+                                   
+                                  {{getRegion(applicant.PersonFN, applicant.PRegion)}}
+                                  <p id="{{applicant.PersonFN}}"></p>
+                                 
                                 </td>
                                 <td>
                                     <!--{{applicant.fkSiteID}}-->

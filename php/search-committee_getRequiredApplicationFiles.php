@@ -13,7 +13,7 @@ $conn = new DBController();
 $data = array();
 
 //get description of each application file
-$sql = "SELECT AutoID, IsRequired, Description FROM tlkpApplicationFiles f WHERE f.IsRequired = 1";
+$sql = "SELECT AutoID, IsRequired, Description, ShortDescription FROM tlkpApplicationFiles f WHERE f.IsRequired = 1";
 
 $result = $conn->runSelectQuery($sql);
 if ($result->num_rows > 0) {

@@ -79,7 +79,23 @@ angular.module('myApplicant')
                     }
                 });
             };
-
+             $scope.checkRequired = function checkRequired(applicantID) {
+                // let total = 0;
+                var ok = false;
+                angular.forEach($scope.completedDocuments, function (compdocument) {
+                    // alert("loop");
+                    if (applicantID === compdocument.fkApplicantID && compdocument.fkApplicationFileID === '8') {
+                      ok =true;
+                    }
+                    if (applicantID === compdocument.fkApplicantID && compdocument.fkApplicationFileID === '11' && ok) {
+                        
+                        document.getElementById(applicantID).innerHTML = "&#10003";
+                        document.getElementById(applicantID).parentElement.className = "green";
+                    }
+                    
+                });
+                // total = 0;
+            };
             var request = {
                 method: "get",
                 url: './php/search-committee_getSitesLkp.php',

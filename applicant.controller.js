@@ -70,31 +70,12 @@ angular.module('myApplicant')
                 });
             // let total = 0;
 
-
+             //check document given with the completed documents and applicantID, if completed box becomes green with a checkmark
             $scope.checkCompletedDocuments = function checkCompletedDocument(applicantID, doc) {
-                // let total = 0;
-
-                angular.forEach($scope.completedDocuments, function (compdocument) {
-                    // alert("loop");
-                    if (applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {
-                        document.getElementById(applicantID + " " + doc).innerHTML = "&#10003";
-                        document.getElementById(applicantID + " " + doc).parentElement.className = "green";
-                    }
-                });
-                // total = 0;
-            };
-
-            $scope.checkCompletedRequirements = function checkCompletedRequirements(applicantID, doc) {
                 angular.forEach($scope.completedDocuments, function (compdocument) {
                     if (applicantID === compdocument.fkApplicantID && doc === compdocument.fkApplicationFileID) {
                         document.getElementById(applicantID + " " + doc).innerHTML = "&#10003";
                         document.getElementById(applicantID + " " + doc).parentElement.className = "green";
-                        angular.forEach($scope.documents, function (rdocument) {
-                            if(rdocument.IsRequired === "1" && compdocument.fkApplicationFileID === rdocument.AutoID){
-                                document.getElementById(applicantID + " isRequired").innerHTML = "&#10003";
-                                document.getElementById(applicantID + " isRequired").parentElement.className = "green";
-                            }
-                        })
                     }
                 });
             };
@@ -114,22 +95,7 @@ angular.module('myApplicant')
                 }, function () {
                     alert("Error Finding Sites");
                 });
-            $scope.getRegion = function(ApplicantID, pr){
-             
-              
-           
-                if(pr==1){
-                    document.getElementById(ApplicantID).innerHTML= 'Coastal Plain';
-                }else if(pr==2){
-                    document.getElementById(ApplicantID).innerHTML= 'Pledmont';
-                }else if(pr==3){
-                    document.getElementById(ApplicantID).innerHTML= 'Blue Ridge';
-                }else if(pr==4){
-                    document.getElementById(ApplicantID).innerHTML= 'Ridge and Valley';
-                }else if(pr==5){
-                    document.getElementById(ApplicantID).innerHTML= 'Plateau';
-                }
-            }
+
             $scope.getSiteName = function getSiteName(ApplicantID, fkSiteId){
                 angular.forEach($scope.sites, function(site) {
                     if(fkSiteId === site.SiteID){
@@ -138,6 +104,33 @@ angular.module('myApplicant')
 
                 });
             };
+
+              //check document given with the completed documents and applicantID, if completed box becomes green with a checkmark
+            $scope.checkCompletedRequirements = function checkCompletedRequirements(applicantID, doc) {
+                angular.forEach($scope.completedDocuments, function (compdocument) {
+                    if (applicantID == compdocument.fkApplicantID && doc.AutoID == compdocument.fkApplicationFileID) {
+                        return 1;
+                    } else
+                        return 0;
+                });
+            };
+
+            //call the document check on all required documents given the applicantID
+            $scope.checkRequirements = function checkRequirements(applicantID) {
+                var numReqs = $scope.requiredDocuments.length;
+                var count = 0;
+                //for each required doc complete the doc check
+                angular.forEach($scope.requiredDocuments, function (rdocument){
+                    //if requirement is complete add to the count
+                    count = count + $scope.checkCompletedRequirements(applicantID, rdocument);
+                });
+
+                //if count equals length of required documents change box to green and add a checkmark
+                if (count == numReqs) {
+                     document.getElementById(applicantID + " reqs").innerHTML = "&#10003";
+                     document.getElementById(applicantID + " reqs").parentElement.className = "green";
+                }
+            }
         }
 
     ]);

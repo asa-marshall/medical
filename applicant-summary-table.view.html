@@ -90,19 +90,24 @@
                             <thead>
                             <tr>
                                 <!--<th>Full Name</th>-->
+                                <th>Select Applicant</th>
                                 <th>First Name</th>
                                 <th>GenQual</th>
                                 <th>Last Name</th>
                                 <th>Region</th>
                                 <th>Site</th>
+                                <th>Completed Requirements</th>
 
                                 <th ng-repeat="rdocument in requiredDocuments">{{rdocument.Description}} (Required)</th>
 
                                 <th ng-repeat="document in documents">{{document.Description}}</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody  align=center>
                             <tr ng-repeat="applicant in applicants">
+                                <td>
+                                    <input type="checkbox" id="{applicant.ApplicantID + ' check'" name=""filter applicants">
+                                </td>
                                 <td>
                                     {{applicant.PersonFN}}
                                 </td>
@@ -121,18 +126,23 @@
                                     {{getSiteName(applicant.ApplicantID, applicant.fkSiteID)}}
                                     <p id="{{applicant.ApplicantID}} site"></p>
                                 </td>
-
-                                <td ng-repeat="rdocument in requiredDocuments" class="red" style="text-align: center">
+                                <td class="red">
+                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' reqs'}}">&#10005;</p>
+                                </td>
+                                <td ng-repeat="rdocument in requiredDocuments" class="red">
                                     {{checkCompletedRequirements(applicant.ApplicantID, rdocument.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + rdocument.AutoID}}">&#10005;</p>
                                 </td>
-                                <td align=center ng-repeat="document in documents" class="red check">
+                                <td ng-repeat="document in documents" class="red check">
                                     {{checkCompletedDocuments(applicant.ApplicantID, document.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + document.AutoID}}">&#10005;</p>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
+                        <button type="button" class="btn btn-success" style="background: linear-gradient(to bottom, #1c9e2d, #067613);" ng-click="">
+                            Filter Applicants
+                        </button>
                     </div>
                 </div>
             </div>

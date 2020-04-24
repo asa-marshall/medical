@@ -4,7 +4,7 @@ angular.module('myApplicant')
 
             //read the localStorage an get the current applicant
             $scope.init = function init() {
-                $scope.ApplicantID = $window.localStorage.getItem("ApplicantID");
+                $scope.ApplicantID = $window.localStorage.getItem("temp_applicants"); //"ApplicantID"
                 $scope.applicantIDError = ($scope.ApplicantID == null || $scope.ApplicantID === -1);
             };
 
@@ -80,10 +80,10 @@ angular.module('myApplicant')
                 });
             };
              $scope.checkRequired = function checkRequired(applicantID) {
-                // let total = 0;
                 var ok = false;
+
                 angular.forEach($scope.completedDocuments, function (compdocument) {
-                    // alert("loop");
+
                     if (applicantID === compdocument.fkApplicantID && compdocument.fkApplicationFileID === '8') {
                       ok =true;
                     }
@@ -92,9 +92,8 @@ angular.module('myApplicant')
                         document.getElementById(applicantID).innerHTML = "&#10003";
                         document.getElementById(applicantID).parentElement.className = "green";
                     }
-                    
+
                 });
-                // total = 0;
             };
             var request = {
                 method: "get",
@@ -131,22 +130,39 @@ angular.module('myApplicant')
                 });
             };
 
-            //call the document check on all required documents given the applicantID
-            $scope.checkRequirements = function checkRequirements(applicantID) {
-                var numReqs = $scope.requiredDocuments.length;
-                var count = 0;
-                //for each required doc complete the doc check
-                angular.forEach($scope.requiredDocuments, function (rdocument){
-                    //if requirement is complete add to the count
-                    count = count + $scope.checkCompletedRequirements(applicantID, rdocument);
+            $scope.filterApplicants = function filterApplicants() {
+                $window.localStorage.setItem("reset_table", $window.localStorage.getItem("temp_applicants"));
+                var temp = [];
+                angular.forEach($scope.applicants, function (app){
+                    if (app.check)
+                        temp.push(app);
                 });
+                $window.localStorage.setItem("temp_applicants", JSON.stringify(temp));
+                location.reload();
+            };
 
-                //if count equals length of required documents change box to green and add a checkmark
-                if (count == numReqs) {
-                     document.getElementById(applicantID + " reqs").innerHTML = "&#10003";
-                     document.getElementById(applicantID + " reqs").parentElement.className = "green";
+            $scope.resetTable = function resetTable() {
+                var reset = JSON.parse($window.localStorage.getItem("reset_table"));
+                $window.localStorage.setItem("temp_applicants", JSON.stringify(reset));
+                location.reload();
+            };
+
+            $scope.filterAllCheck = true;
+
+            $scope.filterAll = function filterAll() {
+                if (!$scope.filterAllCheck) {
+                    angular.forEach($scope.applicants, function (app){
+                    app.check = true;
+                    });
+                } else {
+                    angular.forEach($scope.applicants, function (app){
+                    app.check = false;
+                    });
                 }
-            }
+            };
+
+
+
         }
 
     ]);

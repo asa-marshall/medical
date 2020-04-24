@@ -86,18 +86,17 @@
             <div class="col-10" ng-hide="applicantIDError">
                 <div class="container-fluid">
                     <div class="row">
-                        <table class="table minerva-table" style="margin-top: 10px;height: 50rem; width: 95rem; overflow: scroll; display: block">
-                            <thead>
+                        <table class="table minerva-table" style="margin-top: 10px;max-height: 50rem; max-width: 95rem; overflow: scroll; display: block">
+                            <thead align=center>
                             <tr>
                                 <!--<th>Full Name</th>-->
-                                <th>Select Applicant</th>
+                                <th>Select Applicant<input title="check" type="checkbox" ng-model="filterAllCheck"  ng-click="filterAll()"/></th>
                                 <th>First Name</th>
                                 <th>GenQual</th>
                                 <th>Last Name</th>
                                 <th>Required</th>
                                 <th>Region</th>
                                 <th>Site</th>
-                                <th>Completed Requirements</th>
 
                                 <th ng-repeat="rdocument in requiredDocuments">{{rdocument.ShortDescription}} (Required)</th>
 
@@ -107,7 +106,7 @@
                             <tbody  align=center>
                             <tr ng-repeat="applicant in applicants">
                                 <td>
-                                    <input type="checkbox" id="{applicant.ApplicantID + ' check'" name=""filter applicants">
+                                    <input title="check" type="checkbox" ng-model="applicant.check" />
                                 </td>
                                 <td>
                                     {{applicant.PersonFN}}
@@ -133,11 +132,8 @@
                                     {{getSiteName(applicant.ApplicantID, applicant.fkSiteID)}}
                                     <p id="{{applicant.ApplicantID}} site"></p>
                                 </td>
-                                <td class="red">
-                                    <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' reqs'}}">&#10005;</p>
-                                </td>
                                 <td ng-repeat="rdocument in requiredDocuments" class="red">
-                                    {{checkCompletedRequirements(applicant.ApplicantID, rdocument.AutoID)}}
+                                    {{checkCompletedDocuments(applicant.ApplicantID, rdocument.AutoID)}}
                                     <p style="height: 100%; width: 100%" id="{{applicant.ApplicantID + ' ' + rdocument.AutoID}}">&#10005;</p>
                                 </td>
                                 <td ng-repeat="document in documents" class="red check">
@@ -147,8 +143,11 @@
                             </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-success" style="background: linear-gradient(to bottom, #1c9e2d, #067613);" ng-click="">
+                        <button type="button" class="btn btn-success" style="background: linear-gradient(to bottom, #1c9e2d, #067613);" ng-click="filterApplicants();">
                             Filter Applicants
+                        </button>
+                        <button type="button" class="btn btn-success" style="background: linear-gradient(to bottom, #1c9e2d, #067613);" ng-click="resetTable();">
+                            Reset Table
                         </button>
                     </div>
                 </div>
